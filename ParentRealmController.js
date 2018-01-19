@@ -7,14 +7,15 @@ const Restaurant = require("./models/Restaurant.js");
 
 class ParentRealmController {
 	constructor(createdCallback) {
+		this.createdCallback = createdCallback;
 		var that = this;
 		this.realm = Realm.open({
 			path: "./DataRealm/default.realm",
 			schema: [Order, OrderItem, Table, Restaurant],
 		}).then(realm => {
 			that.realm = realm;
-			if(createdCallback) {
-				createdCallback();
+			if(that.createdCallback) {
+				that.createdCallback();
 			}
 		});
 	}
