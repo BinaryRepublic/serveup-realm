@@ -1,7 +1,7 @@
 const OrderSchema = {
 	name: "Order",
 	properties: {
-	  	orderId:  "string",
+	  	id:  "string",
 		timestamp: "date",
 		// items: "OrderItem",
 		// amount: "double",

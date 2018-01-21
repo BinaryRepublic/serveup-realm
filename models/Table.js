@@ -1,7 +1,7 @@
 const TableSchema = {
 	name: "Table",
 	properties: {
-	  	tableId:  "string",
+	  	id:  "string",
 		number: "int",
 		restaurant: "Restaurant"
 	}

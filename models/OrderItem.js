@@ -1,7 +1,7 @@
 const OrderItemSchema = {
 	name: "OrderItem",
 	properties: {
-		orderItemId:  "string",
+		id:  "string",
 		name: "string",
 		size: "int",
 		count: "int"

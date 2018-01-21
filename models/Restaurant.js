@@ -1,7 +1,7 @@
 const RestaurantSchema = {
 	name: "Restaurant",
 	properties: {
-	  	restaurantId:  "string",
+	  	id:  "string",
 		ownerId: "string",
 		name: "string"
 	}
