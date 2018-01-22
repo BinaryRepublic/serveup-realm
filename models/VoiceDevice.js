@@ -7,4 +7,4 @@ const VoiceDeviceSchema = {
 		restaurant: 'Restaurant'
 	}
 }
-module.exports = VoiceDevice
+module.exports = VoiceDeviceSchema
