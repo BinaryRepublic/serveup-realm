@@ -12,4 +12,4 @@ const AccountSchema = {
 		country: "string"
 	}
 }
-module.exports = OrderSchema
+module.exports = AccountSchema
