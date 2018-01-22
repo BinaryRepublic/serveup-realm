@@ -2,9 +2,10 @@ const AccountSchema = {
 	name: 'Account',
 	primaryKey: 'id',
 	properties: {
-	  	id:  'string',
+		id:  'string',
 		created: 'date',
 		mail: 'string',
+		password: 'string',
 		firstName: 'string',
 		surname: 'string',
 		street: 'string',
