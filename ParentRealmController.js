@@ -12,7 +12,7 @@ class ParentRealmController {
 		var that = this;
 		this.realm = Realm.open({
 			path: './DataRealm/default.realm',
-			schema: [Order, OrderItem, Account, Restaurant, Table],
+			schema: [Order, OrderItem, Account, Restaurant, VoiceDevice],
 		}).then(realm => {
 			that.realm = realm;
 			if(that.createdCallback) {
