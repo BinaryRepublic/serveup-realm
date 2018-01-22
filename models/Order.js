@@ -4,9 +4,9 @@ const OrderSchema = {
 	properties: {
 	  	id:  'string',
 		timestamp: 'date',
-		// items: 'OrderItem',
-		// amount: 'double',
-		// table: 'Table',
+		items: 'OrderItem',
+		amount: 'double',
+		voiceDevice: 'VoiceDevice',
 		status: {type: 'int', default: 0}
 	}
 }

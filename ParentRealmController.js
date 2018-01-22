@@ -4,7 +4,7 @@ const Order = require('./models/Order.js');
 const OrderItem = require('./models/OrderItem.js');
 const Account = require('./models/Account');
 const Restaurant = require('./models/Restaurant.js');
-const Table = require('./models/Table.js');
+const VoiceDevice = require('./models/VoiceDevice.js');
 
 class ParentRealmController {
 	constructor(createdCallback) {

@@ -1,5 +1,5 @@
-const TableSchema = {
-	name: 'Table',
+const VoiceDeviceSchema = {
+	name: 'VoiceDevice',
 	primaryKey: 'id',
 	properties: {
 	  	id:  'string',
@@ -7,4 +7,4 @@ const TableSchema = {
 		restaurant: 'Restaurant'
 	}
 }
-module.exports = TableSchema
+module.exports = VoiceDevice
