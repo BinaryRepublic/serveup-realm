@@ -1,9 +1,10 @@
 const TableSchema = {
-	name: "Table",
+	name: 'Table',
+	primaryKey: 'id',
 	properties: {
-	  	id:  "string",
-		number: "int",
-		restaurant: "Restaurant"
+	  	id:  'string',
+		number: 'int',
+		restaurant: 'Restaurant'
 	}
 }
 module.exports = TableSchema

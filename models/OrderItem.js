@@ -1,10 +1,11 @@
 const OrderItemSchema = {
-	name: "OrderItem",
+	name: 'OrderItem',
+	primaryKey: 'id',
 	properties: {
-		id:  "string",
-		name: "string",
-		size: "int",
-		count: "int"
+		id:  'string',
+		name: 'string',
+		size: 'int',
+		count: 'int'
 	}
 }
 module.exports = OrderItemSchema
