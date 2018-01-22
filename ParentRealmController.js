@@ -2,8 +2,9 @@
 const Realm = require("realm");
 const Order = require("./models/Order.js");
 const OrderItem = require("./models/OrderItem.js");
-const Table = require("./models/Table.js");
+const Account = require("./models/Account");
 const Restaurant = require("./models/Restaurant.js");
+const Table = require("./models/Table.js");
 
 class ParentRealmController {
 	constructor(createdCallback) {
@@ -11,7 +12,7 @@ class ParentRealmController {
 		var that = this;
 		this.realm = Realm.open({
 			path: "./DataRealm/default.realm",
-			schema: [Order, OrderItem, Table, Restaurant],
+			schema: [Order, OrderItem, Account, Restaurant, Table],
 		}).then(realm => {
 			that.realm = realm;
 			if(that.createdCallback) {
