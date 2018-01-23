@@ -1,5 +1,6 @@
 'use_strict'
 
+const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
 
 class RealmVoiceDeviceController extends ParentRealmController {
