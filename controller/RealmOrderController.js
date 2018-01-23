@@ -1,6 +1,6 @@
 'use_strict'
 
-const ParentRealmController = require('./ro-realm/ParentRealmController');
+const ParentRealmController = require('../ParentRealmController');
 const RealmOrderItemController = require('./RealmOrderItemController');
 
 class RealmOrderController extends ParentRealmController {
