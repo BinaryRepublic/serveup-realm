@@ -2,7 +2,7 @@
 
 const ParentRealmController = require('./ro-realm/ParentRealmController');
 
-class RestaurantController extends ParentRealmController {
+class RealmRestaurantController extends ParentRealmController {
 	constructor() {
 		this.className = 'Restaurant';
 	}
@@ -32,4 +32,4 @@ class RestaurantController extends ParentRealmController {
 		return account;
 	};
 }
-module.exports = RestaurantController;
+module.exports = RealmRestaurantController;

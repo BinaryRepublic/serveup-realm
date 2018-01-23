@@ -2,7 +2,7 @@
 
 const ParentRealmController = require('./ro-realm/ParentRealmController');
 
-class VoiceDeviceController extends ParentRealmController {
+class RealmVoiceDeviceController extends ParentRealmController {
 	constructor() {
 		this.className = 'VoiceDevice';
 	}
@@ -32,4 +32,4 @@ class VoiceDeviceController extends ParentRealmController {
 		return voiceDevice;
 	};
 }
-module.exports = VoiceDeviceController;
+module.exports = RealmVoiceDeviceController;

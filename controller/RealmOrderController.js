@@ -1,12 +1,12 @@
 'use_strict'
 
 const ParentRealmController = require('./ro-realm/ParentRealmController');
-const OrderItemController = require('./OrderItemController');
+const RealmOrderItemController = require('./RealmOrderItemController');
 
-class OrderController extends ParentRealmController {
+class RealmOrderController extends ParentRealmController {
 	constructor() {
 		this.className = 'Order';
-		this.orderItemController = new OrderItemController();
+		this.orderItemController = new RealmOrderItemController();
 	}
 	getOrder(id) {
 		let order = this.objectWithId(this.className, id);
@@ -36,4 +36,4 @@ class OrderController extends ParentRealmController {
 		return order;
 	};
 }
-module.exports = OrderController;
+module.exports = RealmOrderController;

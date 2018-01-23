@@ -2,7 +2,7 @@
 
 const ParentRealmController = require('./ro-realm/ParentRealmController');
 
-class AccountController extends ParentRealmController {
+class RealmAccountController extends ParentRealmController {
 	constructor() {
 		this.className = 'Account';
 	}
@@ -21,4 +21,4 @@ class AccountController extends ParentRealmController {
 		return account;
 	};
 }
-module.exports = AccountController;
+module.exports = RealmAccountController;
