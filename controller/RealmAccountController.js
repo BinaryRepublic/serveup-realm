@@ -4,6 +4,7 @@ const ParentRealmController = require('../ParentRealmController');
 
 class RealmAccountController extends ParentRealmController {
 	constructor() {
+		super();
 		this.className = 'Account';
 	}
 	getAccount(id) {

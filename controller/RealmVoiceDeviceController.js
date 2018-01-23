@@ -4,6 +4,7 @@ const ParentRealmController = require('../ParentRealmController');
 
 class RealmVoiceDeviceController extends ParentRealmController {
 	constructor() {
+		super();
 		this.className = 'VoiceDevice';
 	}
 	getVoiceDevice(id) {

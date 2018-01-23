@@ -4,6 +4,7 @@ const ParentRealmController = require('../ParentRealmController');
 
 class RealmRestaurantController extends ParentRealmController {
 	constructor() {
+		super();
 		this.className = 'Restaurant';
 	}
 	getRestaurant(id) {

@@ -5,6 +5,7 @@ const RealmOrderItemController = require('./RealmOrderItemController');
 
 class RealmOrderController extends ParentRealmController {
 	constructor() {
+		super();
 		this.className = 'Order';
 		this.orderItemController = new RealmOrderItemController();
 	}
