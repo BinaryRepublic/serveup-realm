@@ -4,7 +4,8 @@ const RestaurantSchema = {
 	properties: {
 	  	id:  'string',
 		owner: 'Account',
-		name: 'string'
+		name: 'string',
+		created: 'date'
 	}
 }
 module.exports = RestaurantSchema
