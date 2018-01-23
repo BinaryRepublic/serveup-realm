@@ -7,6 +7,7 @@ const OrderSchema = {
 		items: 'OrderItem',
 		amount: 'double',
 		voiceDevice: 'VoiceDevice',
+		restaurant: 'Restaurant',
 		status: {type: 'int', default: 0}
 	}
 }
