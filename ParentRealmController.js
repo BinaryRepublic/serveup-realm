@@ -56,8 +56,8 @@ class ParentRealmController {
 	valid(className, obj) {
 		let realmSchema = this[className];
 		var valid = true;
-		for(var property in realmSchema) {
-			if (!obj.hasOwnProperty(property) && property !== "name") {
+		for(var property in realmSchema.properties) {
+			if (!obj.hasOwnProperty(property)) {
 				valid = false;
 				console.error("MISSING: " + property + " in " + className);
 				break;
