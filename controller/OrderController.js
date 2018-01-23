@@ -1,10 +1,12 @@
 'use_strict'
 
 const ParentRealmController = require('./ro-realm/ParentRealmController');
+const OrderItemController = require('./OrderItemController');
 
 class OrderController extends ParentRealmController {
 	constructor() {
 		this.className = 'Order';
+		this.orderItemController = new OrderItemController();
 	}
 	getOrder(id) {
 		let order = this.objectWithId(this.className, id);
@@ -15,21 +17,19 @@ class OrderController extends ParentRealmController {
 		let orders = this.objectsWithFilter(this.className, filterString);
 		return orders;
 	};
-	createOrder(voiceDeviceId, orrderItemsArray) {
+	createOrder(voiceDeviceId, orderItemsArray) {
 		let voiceDevice = this.objectWithId('VoiceDevice', voiceDeviceId);
 		if(voiceDevice) {
 			orderJSON.id = uuidv4();
 			orderJSON.created = new Date();
 			orderJSON.voiceDevice = voiceDevice;
 			orderJSON.restaurant = voiceDevice.restaurant;
-			orrderItemsArray.forEach(element => {
-				// 
-			});
+			orderJSON.items = this.orderItemController.createItemsFromJSONArray(orderJSON.id, orderItemsArray);
 			let order = this.createObject(this.className, orderJSON);
 			return order;
 		} else {
 			return;
-		}
+		};
 	};
 	updateOrder(id, newData) {
 		let order = this.updateObject(this.className, id, newData);

@@ -5,7 +5,8 @@ const OrderItemSchema = {
 		id:  'string',
 		name: 'string',
 		size: 'int',
-		count: 'int'
+		count: 'int',
+		orderId: 'string'
 	}
 }
 module.exports = OrderItemSchema
