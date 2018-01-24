@@ -32,7 +32,7 @@ class ParentRealmController {
     formatRealmObj (objectElem) {
         let result = null;
         let worker = objectElem;
-        if (typeof worker === 'object') {
+        if (typeof worker === 'object' && !worker instanceof Date) {
             let toArray = false;
             for (let key in worker) {
                 if (key === '0') {
