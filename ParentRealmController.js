@@ -30,7 +30,7 @@ class ParentRealmController {
 	// Abstract methods
 	objectWithId(className, id) {
 		let object = this.realm.objects(className).filtered('id = $0', id);
-		if(objet && object.length == 1) {
+		if(object && object.length == 1) {
 			return object[0];
 		}
 		return;
