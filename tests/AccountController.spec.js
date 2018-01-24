@@ -14,10 +14,11 @@ describe('RealmAccountController', () => {
 		expect(controller.createAccount).to.be.a('Function')
 		expect(controller.updateAccount).to.be.a('Function')
 	})
-	it('Create account', (done) => {
+	it('createAccount', (done) => {
 		const controller = new RealmAccountController();
 		controller.realm.then(realm => {
 			account = controller.createAccount(accountMock);
+
 			expect(account.mail).to.equal(accountMock.mail);
 			expect(account.password).to.equal(accountMock.password);
 			expect(account.firstName).to.equal(accountMock.firstName);
@@ -26,29 +27,42 @@ describe('RealmAccountController', () => {
 			expect(account.postCode).to.equal(accountMock.postCode);
 			expect(account.city).to.equal(accountMock.city);
 			expect(account.country).to.equal(accountMock.country);
+
+			expect(account.created).to.be.an('date');
+			expect(account.id).to.be.an('string');
+			expect(account.id).not.to.be.empty;
+
 			done();
 		}).catch(err => {
 			done(err);
 		});
 	})
-	// it('Update account', (done) => {
-	// 	const controller = new RealmAccountController();
-	// 	controller.realm.then(realm => {
-	// 		var newMail = "acbdefgadasd@de.as";
-	// 		var newPostCode = 99999;
-	// 		var newData = {
-	// 			mail:newMail,
-	// 			postCode:newPostCode
-	// 		}
-	// 		let updatedAccount = controller.updateAccount(account.id, newData);
-	// 		console.log(updatedAccount);
-	// 		expect(updatedAccount.mail).to.equal(newMail);
-	// 		expect(updatedAccount.postCode).to.equal(newPostCode);
-	// 		done();
-	// 	}).catch(err => {
-	// 		done(err);
-	// 	});
-	// })
+	it('updateAccount', (done) => {
+		const controller = new RealmAccountController();
+		controller.realm.then(realm => {
+			let newMail = "acbdefgadasd@de.as";
+			let newPostCode = 99999;
+			let newData = {
+				mail:newMail,
+				postCode:newPostCode
+			}
+			let updatedAccount = controller.updateAccount(account.id, newData);
+			expect(updatedAccount).to.deep.equal(account);
+			done();
+		}).catch(err => {
+			done(err);
+		});
+	})
+	it('getAccount', (done) => {
+		const controller = new RealmAccountController();
+		controller.realm.then(realm => {
+			let getAccount = controller.getAccount(account.id);
+			expect(getAccount).to.deep.equal(account);
+			done();
+		}).catch(err => {
+			done(err);
+		});
+	})
 
 	
 })
