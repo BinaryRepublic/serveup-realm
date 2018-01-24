@@ -22,7 +22,7 @@ class RealmRestaurantController extends ParentRealmController {
 		if(ownerAccount) {
 			restaurantJSON.id = uuidv4();
 			restaurantJSON.created = new Date();
-			restaurantJSON.owner = ownerAccount;
+			restaurantJSON.account = ownerAccount;
 			let restaurant = this.createObject(this.className, restaurantJSON);
 			return restaurant;
 		} else {
