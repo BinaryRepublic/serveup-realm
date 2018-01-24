@@ -4,7 +4,7 @@
   "description": "Module for realm database",
   "scripts": {
     "clean": "rm -rf DataRealm",
-    "test": "mocha tests/**.spec.js"
+    "test": "mocha tests/**.test.js"
   },
   "repository": {
     "type": "git",
