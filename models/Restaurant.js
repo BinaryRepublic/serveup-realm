@@ -3,7 +3,7 @@ const RestaurantSchema = {
 	primaryKey: 'id',
 	properties: {
 	  	id:  'string',
-		owner: 'Account',
+		account: 'Account',
 		name: 'string',
 		created: 'date'
 	}

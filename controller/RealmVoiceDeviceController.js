@@ -13,7 +13,7 @@ class RealmVoiceDeviceController extends ParentRealmController {
 		return voiceDevice;
 	};
 	getVoiceDevices(restaurantId) {
-		let filterString = `Restaurant.id = ${restaurantId}`;
+		let filterString = `restaurant.id = ${restaurantId}`;
 		let voiceDevices = this.objectsWithFilter(this.className, filterString);
 		return voiceDevices;
 	};

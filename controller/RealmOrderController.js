@@ -15,7 +15,7 @@ class RealmOrderController extends ParentRealmController {
 		return order;
 	};
 	getOrders(restaurantId) {
-		let filterString = `Restaurant.id = ${restaurantId}`;
+		let filterString = `restaurant.id = ${restaurantId}`;
 		let orders = this.objectsWithFilter(this.className, filterString);
 		return orders;
 	};

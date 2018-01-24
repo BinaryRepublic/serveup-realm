@@ -13,7 +13,7 @@ class RealmRestaurantController extends ParentRealmController {
 		return restaurant;
 	};
 	getRestaurants(accountId) {
-		let filterString = `Account.id = ${accountId}`;
+		let filterString = `account.id = ${accountId}`;
 		let restaurants = this.objectsWithFilter(this.className, filterString);
 		return restaurants;
 	};
