@@ -1,0 +1,10 @@
+{
+	"mail": "a@b.c",
+	"password": "123456789",
+	"firstName": "Peter",
+	"surname": "Factory",
+	"street": "Lohmühlenstraße 65",
+	"postCode": 12435,
+	"city": "Berlin",
+	"country": "Deutschland"
+}

@@ -4,8 +4,8 @@ const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
 
 class RealmVoiceDeviceController extends ParentRealmController {
-	constructor() {
-		super();
+	constructor(callback) {
+		super(callback);
 		this.className = 'VoiceDevice';
 	}
 	getVoiceDevice(id) {

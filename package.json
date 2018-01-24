@@ -1,0 +1,21 @@
+{
+  "name": "ro-realm",
+  "version": "1.0.0",
+  "description": "Module for realm database",
+  "scripts": {
+    "test": "mocha tests/**.spec.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/restaurantorder/ro-realm.git"
+  },
+  "author": "Henrik Engelbrink",
+  "license": "ISC",
+  "dependencies": {
+    "realm": "^2.2.4"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.0"
+  }
+}

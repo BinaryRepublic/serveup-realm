@@ -7,24 +7,20 @@ const Restaurant = require('./models/Restaurant.js');
 const VoiceDevice = require('./models/VoiceDevice.js');
 
 class ParentRealmController {
-	constructor(createdCallback) {
+	constructor() {
 		this.Order = Order;
 		this.OrderItem = OrderItem;
 		this.Account = Account;
 		this.Restaurant = Restaurant;
 		this.VoiceDevice = VoiceDevice;
 
-		this.createdCallback = createdCallback;
-		var that = this;
+		var that = this
 		this.realm = Realm.open({
 			path: './DataRealm/default.realm',
 			schema: [Order, OrderItem, Account, Restaurant, VoiceDevice],
 		}).then(realm => {
 			that.realm = realm;
-			if(that.createdCallback) {
-				that.createdCallback();
-			}
-		});
+		})
 	};
 
 	// Abstract methods
