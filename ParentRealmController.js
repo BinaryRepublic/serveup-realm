@@ -37,7 +37,8 @@ class ParentRealmController {
 	};
 	objectsWithFilter(className, filter) {
 		let objects = this.realm.objects(className).filtered(filter);
-		return objects;
+		let arrObjects = Array.from(objects)
+		return arrObjects;
 	};
 	createObject(className, objData) {
 		let object;
