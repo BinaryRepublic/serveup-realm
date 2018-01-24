@@ -45,10 +45,7 @@ class ParentRealmController {
 	};
 	updateObject(className, objectId, objData) {
 		objData.id = objectId;
-		let object;
-		if(this.valid(className, objData)) {
-			object = this.writeObject(className, objData, true);
-		}
+		let object = this.writeObject(className, objData, true);
 		return object;
 	};
 

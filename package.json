@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Module for realm database",
   "scripts": {
+    "clean": "rm -rf DataRealm",
     "test": "mocha tests/**.spec.js"
   },
   "repository": {
