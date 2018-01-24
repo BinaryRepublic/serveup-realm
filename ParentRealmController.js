@@ -56,7 +56,9 @@ class ParentRealmController {
 		for(var property in realmSchema.properties) {
 			if (!obj.hasOwnProperty(property)) {
 				valid = false;
-				// console.error("MISSING: " + property + " in " + className);
+				if(process.env.DEBUG) {
+					console.error("MISSING: " + property + " in " + className);
+				}
 				break;
     		}
 		}
@@ -71,8 +73,10 @@ class ParentRealmController {
 				created = this.realm.create(className, obj, update);
 			});
 		} catch (e) {
-			// console.log('Error on creation: ' + e);
-			// console.log(className + ' -> ' + JSON.stringify(obj));
+			if(process.env.DEBUG) {
+				console.log('Error on creation: ' + e);
+				console.log(className + ' -> ' + JSON.stringify(obj));
+			}
 		}
 		return created;
 	};
