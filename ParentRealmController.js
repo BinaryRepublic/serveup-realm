@@ -8,6 +8,8 @@ const VoiceDevice = require('./models/VoiceDevice.js');
 const Drink = require('./models/Drink.js');
 const DrinkVar = require('./models/DrinkVar.js');
 const DefaultParentDrink = require('./models/DefaultParentDrink.js');
+const Address = require('./models/Address.js');
+const DrinkMenu = require('./models/DrinkMenu.js');
 
 class ParentRealmController {
 	constructor() {
@@ -18,12 +20,14 @@ class ParentRealmController {
 		this.VoiceDevice = VoiceDevice;
         this.Drink = Drink;
         this.DrinkVar = DrinkVar;
-        this.DefaultParentDrink = DefaultParentDrink;
+		this.DefaultParentDrink = DefaultParentDrink;
+		this.Address = Address;
+		this.DrinkMenu = DrinkMenu;
 
 		var that = this
 		this.realm = Realm.open({
 			path: './DataRealm/default.realm',
-			schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Drink, DrinkVar, DefaultParentDrink],
+			schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Drink, DrinkVar, DefaultParentDrink, Address, DrinkMenu],
 		}).then(realm => {
 			that.realm = realm;
 		})
@@ -84,7 +88,12 @@ class ParentRealmController {
 		}
 		return object;
 	};
-	updateObject(className, objectId, objData) {
+	updateObject(className, objectId, objData, validAttributes) {
+		// staticAttributes.forEach(attribute => {
+		// 	if(objData.hasOwnProperty(staticAttributes)) {
+		// 		delete objData.attribute;
+		// 	};
+		// });
 		objData.id = objectId;
 		let object = this.writeObject(className, objData, true);
 		return object;

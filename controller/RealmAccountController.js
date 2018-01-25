@@ -19,7 +19,7 @@ class RealmAccountController extends ParentRealmController {
 		return account;
 	};
 	updateAccount(id, newData) {
-		let account = this.updateObject(this.className, id, newData);
+		let account = this.updateObject(this.className, id, newData, []);
 		return account;
 	};
 }

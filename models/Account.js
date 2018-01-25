@@ -8,10 +8,8 @@ const AccountSchema = {
 		password: 'string',
 		firstName: 'string',
 		surname: 'string',
-		street: 'string',
-		postCode: 'int',
-		city: 'string',
-		country: 'string'
+		address: 'Address',
+		phone: 'string'
 	}
 }
 module.exports = AccountSchema

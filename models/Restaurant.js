@@ -5,7 +5,9 @@ const RestaurantSchema = {
 	  	id:  'string',
 		account: 'Account',
 		name: 'string',
-		created: 'date'
+		created: 'date',
+		address: 'Address',
+		drinkMenus: 'DrinkMenu[]'
 	}
 }
 module.exports = RestaurantSchema
