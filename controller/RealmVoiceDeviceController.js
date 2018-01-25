@@ -30,7 +30,7 @@ class RealmVoiceDeviceController extends ParentRealmController {
 		}
 	};
 	updateVoiceDevice(id, newData) {
-		let voiceDevice = this.updateObject(this.className, id, newData);
+		let voiceDevice = this.updateObject(this.className, id, newData, ['number', 'restaurant']);
 		return voiceDevice;
 	};
 }

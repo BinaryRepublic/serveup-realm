@@ -34,7 +34,7 @@ class RealmOrderController extends ParentRealmController {
 		};
 	};
 	updateOrder(id, newData) {
-		let order = this.updateObject(this.className, id, newData);
+		let order = this.updateObject(this.className, id, newData, ['status']);
 		return order;
 	};
 }

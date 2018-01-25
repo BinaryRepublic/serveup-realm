@@ -2,10 +2,10 @@ const RestaurantSchema = {
 	name: 'Restaurant',
 	primaryKey: 'id',
 	properties: {
-	  	id:  'string',
+		id:  'string',
+		created: 'date',
 		account: 'Account',
 		name: 'string',
-		created: 'date',
 		address: 'Address',
 		drinkMenus: 'DrinkMenu[]'
 	}

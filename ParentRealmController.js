@@ -35,7 +35,7 @@ class ParentRealmController {
 
     formatRealmObj (objectElem) {
         let result = null;
-        let worker = objectElem;
+		let worker = objectElem;
         if (typeof worker === 'object' && !worker instanceof Date) {
             let toArray = false;
             for (let key in worker) {
@@ -88,12 +88,14 @@ class ParentRealmController {
 		}
 		return object;
 	};
-	updateObject(className, objectId, objData, validAttributes) {
-		// staticAttributes.forEach(attribute => {
-		// 	if(objData.hasOwnProperty(staticAttributes)) {
-		// 		delete objData.attribute;
-		// 	};
-		// });
+	updateObject(className, objectId, objData, legalAttributes) {
+		for (var property in objData) {
+			if (objData.hasOwnProperty(property)) {
+				if(!legalAttributes.includes(property)) {
+					delete objData.property;
+				}
+			}
+		}
 		objData.id = objectId;
 		let object = this.writeObject(className, objData, true);
 		return object;

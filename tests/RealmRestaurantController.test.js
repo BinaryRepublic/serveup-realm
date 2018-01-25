@@ -22,9 +22,14 @@ describe('RealmRestaurantController', () => {
 				account = accountController.createAccount(require('./mockData/account/createValid.json'))
 				let controller = new RealmRestaurantController();
 				controller.realm.then(realm => {
-					const mock = require('./mockData/restaurant/createValid.json')
+					const mock = require('./mockData/restaurant/createValid.json');
+					mock.account = account;
+					mock.address = account.address;
 					restaurant = controller.createRestaurant(account.id, mock);
+					console.log(restaurant.drinkMenus);
 					expect(restaurant.name).to.equal(mock.name);
+					expect(restaurant.address).to.deep.equal(mock.address);
+					expect(restaurant.drinkMenus).to.equal(mock.drinkMenus);
 					expect(restaurant.account).to.deep.equal(account);
 					expect(restaurant.created).to.be.an('date');
 					expect(restaurant.id).to.be.an('string');

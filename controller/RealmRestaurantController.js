@@ -2,11 +2,13 @@
 
 const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
+const RealmAddressController = require('./RealmAddressController');
 
 class RealmRestaurantController extends ParentRealmController {
 	constructor(callback) {
 		super(callback);
 		this.className = 'Restaurant';
+		this.addressController = new RealmAddressController();
 	}
 	getRestaurant(id) {
 		let restaurant = this.objectWithId(this.className, id);
@@ -22,7 +24,6 @@ class RealmRestaurantController extends ParentRealmController {
 		if(ownerAccount) {
 			restaurantJSON.id = uuidv4();
 			restaurantJSON.created = new Date();
-			restaurantJSON.account = ownerAccount;
 			let restaurant = this.createObject(this.className, restaurantJSON);
 			return restaurant;
 		} else {
@@ -30,7 +31,7 @@ class RealmRestaurantController extends ParentRealmController {
 		}
 	};
 	updateRestaurant(id, newData) {
-		let restaurant = this.updateObject(this.className, id, newData);
+		let restaurant = this.updateObject(this.className, id, newData, ['name', 'address', 'drinkMenus']);
 		return restaurant;
 	};
 }

@@ -1,16 +1,19 @@
 'use strict'
 
-const RealmAccountController = require('../controller/RealmAccountController')
-const expect = require('chai').expect
+const RealmAccountController = require('../controller/RealmAccountController');
+const expect = require('chai').expect;
+const RealmAddressController = require('../controller/RealmAddressController')
 
 var account;
+var address;
 
 describe('RealmAccountController', () => {
-	it('Create object and check methods', () => {
+	it('Create object and check methods', (done) => {
 		const controller = new RealmAccountController();
 		expect(controller.getAccount).to.be.a('Function')
 		expect(controller.createAccount).to.be.a('Function')
 		expect(controller.updateAccount).to.be.a('Function')
+		done();
 	})
 	describe('Valid Data', () => {
 		it('createAccount', (done) => {
@@ -18,15 +21,19 @@ describe('RealmAccountController', () => {
 			controller.realm.then(realm => {
 				const accountMock = require('./mockData/account/createValid.json')
 				account = controller.createAccount(accountMock);
-	
+				
+				expect(account).not.to.be.undefined;
 				expect(account.mail).to.equal(accountMock.mail);
 				expect(account.password).to.equal(accountMock.password);
 				expect(account.firstName).to.equal(accountMock.firstName);
 				expect(account.surname).to.equal(accountMock.surname);
-				expect(account.street).to.equal(accountMock.street);
-				expect(account.postCode).to.equal(accountMock.postCode);
-				expect(account.city).to.equal(accountMock.city);
-				expect(account.country).to.equal(accountMock.country);
+				expect(account.phone).to.equal(accountMock.phone);
+
+				expect(account.address).not.to.be.undefined;
+				expect(account.address.street).to.equal(accountMock.street);
+				expect(account.address.postCode).to.equal(accountMock.postCode);
+				expect(account.address.city).to.equal(accountMock.city);
+				expect(account.address.country).to.equal(accountMock.country);
 	
 				expect(account.created).to.be.an('date');
 				expect(account.id).to.be.an('string');
@@ -41,14 +48,11 @@ describe('RealmAccountController', () => {
 			const controller = new RealmAccountController();
 			controller.realm.then(realm => {
 				let newMail = "acbdefgadasd@de.as";
-				let newPostCode = 99999;
 				let newData = {
-					mail:newMail,
-					postCode:newPostCode
+					mail:newMail
 				}
 				let updatedAccount = controller.updateAccount(account.id, newData);
 				expect(updatedAccount.mail).to.equal(newMail);
-				expect(updatedAccount.postCode).to.equal(newPostCode);
 				expect(updatedAccount).to.deep.equal(account);
 				done();
 			}).catch(err => {
