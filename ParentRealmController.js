@@ -12,31 +12,31 @@ const Address = require('./models/Address.js');
 const DrinkMenu = require('./models/DrinkMenu.js');
 
 class ParentRealmController {
-	constructor() {
-		this.Order = Order;
-		this.OrderItem = OrderItem;
-		this.Account = Account;
-		this.Restaurant = Restaurant;
-		this.VoiceDevice = VoiceDevice;
+    constructor () {
+        this.Order = Order;
+        this.OrderItem = OrderItem;
+        this.Account = Account;
+        this.Restaurant = Restaurant;
+        this.VoiceDevice = VoiceDevice;
         this.Drink = Drink;
         this.DrinkVar = DrinkVar;
-		this.DefaultParentDrink = DefaultParentDrink;
-		this.Address = Address;
-		this.DrinkMenu = DrinkMenu;
+        this.DefaultParentDrink = DefaultParentDrink;
+        this.Address = Address;
+        this.DrinkMenu = DrinkMenu;
 
-		var that = this
-		this.realm = Realm.open({
-			path: './DataRealm/default.realm',
-			schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Drink, DrinkVar, DefaultParentDrink, Address, DrinkMenu],
-		}).then(realm => {
-			that.realm = realm;
-		})
-	};
+        var that = this;
+        this.realm = Realm.open({
+            path: './DataRealm/default.realm',
+            schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Drink, DrinkVar, DefaultParentDrink, Address, DrinkMenu]
+        }).then(realm => {
+            that.realm = realm;
+        });
+    };
 
     formatRealmObj (objectElem) {
         let result = null;
-		let worker = objectElem;
-        if (typeof worker === 'object' && !worker instanceof Date) {
+        let worker = objectElem;
+        if (typeof worker === 'object' && !(worker instanceof Date) && !Array.isArray(worker)) {
             let toArray = false;
             for (let key in worker) {
                 if (key === '0') {
@@ -44,7 +44,6 @@ class ParentRealmController {
                     break;
                 }
             }
-
             if (toArray) {
                 result = [];
                 worker = Array.from(worker);
@@ -67,70 +66,66 @@ class ParentRealmController {
         return result;
     };
 
-	// Abstract methods
-	objectWithId(className, id) {
-		let object = this.realm.objects(className).filtered('id = $0', id);
-		if(object && object.length === 1) {
-            object = this.formatRealmObj(object);
-			return object[0];
-		}
-		return;
-	};
-	objectsWithFilter(className, filter) {
-		let objects = this.realm.objects(className).filtered(filter);
-        objects = this.formatRealmObj(objects);
-		return objects;
-	};
-	createObject(className, objData) {
-		let object;
-		if(this.valid(className, objData)) {
-			object = this.writeObject(this.className, objData, false);
-		}
-		return object;
-	};
-	updateObject(className, objectId, objData, legalAttributes) {
-		for (var property in objData) {
-			if (objData.hasOwnProperty(property)) {
-				if(!legalAttributes.includes(property)) {
-					delete objData.property;
-				}
-			}
-		}
-		objData.id = objectId;
-		let object = this.writeObject(className, objData, true);
-		return object;
-	};
+    // Abstract methods
+    objectWithId (className, id) {
+        let object = this.realm.objects(className).filtered('id = $0', id);
+        if (object && object.length === 1) {
+            return object[0];
+        }
+    };
+    objectsWithFilter (className, filter) {
+        let objects = this.realm.objects(className).filtered(filter);
+        return objects;
+    };
+    createObject (className, objData) {
+        if (this.valid(className, objData)) {
+            let object = this.writeObject(this.className, objData, false);
+            return object;
+        }
+    };
+    updateObject (className, objectId, objData, legalAttributes) {
+        for (var property in objData) {
+            if (objData.hasOwnProperty(property)) {
+                if (!legalAttributes.includes(property)) {
+                    delete objData.property;
+                }
+            }
+        }
+        objData.id = objectId;
+        let object = this.writeObject(className, objData, true);
+        return object;
+    };
 
-	// Validation
-	valid(className, obj) {
-		let realmSchema = this[className];
-		var valid = true;
-		for(var property in realmSchema.properties) {
-			if (!obj.hasOwnProperty(property)) {
-				valid = false;
-				if(process.env.DEBUG) {
-					console.error("MISSING: " + property + " in " + className);
-				}
-				break;
-    		}
-		}
-		return valid;
-	}
+    // Validation
+    valid (className, obj) {
+        let realmSchema = this[className];
+        var valid = true;
+        for (var property in realmSchema.properties) {
+            if (!obj.hasOwnProperty(property)) {
+                valid = false;
+                if (process.env.DEBUG) {
+                    console.error('MISSING: ' + property + ' in ' + className);
+                }
+                break;
+            }
+        }
+        return valid;
+    }
 
-	// Realm methods
-	writeObject(className, obj, update) {
-		var created;
-		try {
-			this.realm.write(() => {
-				created = this.realm.create(className, obj, update);
-			});
-		} catch (e) {
-			if(process.env.DEBUG) {
-				console.log('Error on creation: ' + e);
-				console.log(className + ' -> ' + JSON.stringify(obj));
-			}
-		}
-		return created;
-	};
+    // Realm methods
+    writeObject (className, obj, update) {
+        let created;
+        try {
+            this.realm.write(() => {
+                created = this.realm.create(className, obj, update);
+            });
+        } catch (e) {
+            if (process.env.DEBUG) {
+                console.log('Error on creation: ' + e);
+                console.log(className + ' -> ' + JSON.stringify(obj));
+            }
+        }
+        return created;
+    };
 }
 module.exports = ParentRealmController;
