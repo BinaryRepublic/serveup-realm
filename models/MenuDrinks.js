@@ -1,5 +1,5 @@
-const DrinkSchema = {
-    name: 'Drink',
+const MenuDrinksSchema = {
+    name: 'MenuDrinks',
     primaryKey: 'id',
     properties: {
         id: 'string',
@@ -13,5 +13,5 @@ const DrinkSchema = {
         alone: 'bool?',
         restaurantId: 'string'
     }
-}
-module.exports = DrinkSchema
+};
+module.exports = MenuDrinksSchema;

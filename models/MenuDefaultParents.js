@@ -1,10 +1,10 @@
-const DefaultParentDrinkSchema = {
-    name: 'DefaultParentDrink',
+const MenuDefaultParentsSchema = {
+    name: 'MenuDefaultParents',
     primaryKey: 'id',
     properties: {
         id: 'string',
         name: 'string',
         parent: 'string'
     }
-}
-module.exports = DefaultParentDrinkSchema
+};
+module.exports = MenuDefaultParentsSchema;
