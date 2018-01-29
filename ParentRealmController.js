@@ -5,11 +5,11 @@ const OrderItem = require('./models/OrderItem.js');
 const Account = require('./models/Account');
 const Restaurant = require('./models/Restaurant.js');
 const VoiceDevice = require('./models/VoiceDevice.js');
-const Drink = require('./models/Drink.js');
-const DrinkVar = require('./models/DrinkVar.js');
-const DefaultParentDrink = require('./models/DefaultParentDrink.js');
+const Menu = require('./models/Menu.js');
+const MenuDrinks = require('./models/MenuDrinks.js');
+const MenuDrinksVar = require('./models/MenuDrinksVar.js');
+const MenuDefaultParent = require('./models/MenuDefaultParent.js');
 const Address = require('./models/Address.js');
-const DrinkMenu = require('./models/DrinkMenu.js');
 
 class ParentRealmController {
     constructor () {
@@ -18,22 +18,22 @@ class ParentRealmController {
         this.Account = Account;
         this.Restaurant = Restaurant;
         this.VoiceDevice = VoiceDevice;
-        this.Drink = Drink;
-        this.DrinkVar = DrinkVar;
-        this.DefaultParentDrink = DefaultParentDrink;
+        this.Menu = Menu;
+        this.MenuDrinks = MenuDrinks;
+        this.MenuDrinksVar = MenuDrinksVar;
+        this.MenuDefaultParent = MenuDefaultParent;
         this.Address = Address;
-        this.DrinkMenu = DrinkMenu;
 
         var that = this;
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
-            schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Drink, DrinkVar, DefaultParentDrink, Address, DrinkMenu]
+            schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent, Address]
         }).then(realm => {
             that.realm = realm;
         });
     };
 
-    formatRealmObj (objectElem) {
+    formatRealmObj (objectElem, emptyToUndefined = false) {
         let result = null;
         let worker = objectElem;
         if (typeof worker === 'object' && !(worker instanceof Date) && !Array.isArray(worker)) {
@@ -48,20 +48,33 @@ class ParentRealmController {
                 result = [];
                 worker = Array.from(worker);
                 for (let x = 0; x < worker.length; x++) {
-                    result[x] = this.formatRealmObj(worker[x]);
+                    result[x] = this.formatRealmObj(worker[x], emptyToUndefined);
                 }
             } else if (JSON.stringify(worker) === JSON.stringify({})) {
-                result = [];
+                if (!emptyToUndefined) {
+                    result = [];
+                } else {
+                    result = undefined;
+                }
             } else if (worker === null) {
-                result = false;
+                result = undefined;
             } else {
                 result = {};
                 for (let key in worker) {
-                    result[key] = this.formatRealmObj(worker[key]);
+                    let newObj = this.formatRealmObj(worker[key], emptyToUndefined);
+                    if (newObj !== undefined) {
+                        result[key] = newObj;
+                    } else {
+                        delete result[key];
+                    }
                 }
             }
         } else {
-            result = objectElem;
+            if (Array.isArray(objectElem) && !objectElem.length && emptyToUndefined) {
+                result = undefined;
+            } else {
+                result = objectElem;
+            }
         }
         return result;
     };
