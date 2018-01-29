@@ -7,7 +7,7 @@ class DrinkHelper extends ParentRealmController {
     constructor () {
         super();
         this.drinks = 'drinks';
-        this.defaultParent = 'defaultParent';
+        this.defaultParents = 'defaultParents';
     }
 
     // menu validation
@@ -16,7 +16,7 @@ class DrinkHelper extends ParentRealmController {
         let errors = [];
         let createErr = (objName, type, name, index = false) => {
             let errorStr = objName + ': ';
-            if (objName === this.defaultParent) {
+            if (objName === this.defaultParents) {
                 switch (type) {
                 case 'duplicate':
                     errorStr += 'duplicated name in ' + objName + ' at name "' + name + '"';
@@ -39,6 +39,9 @@ class DrinkHelper extends ParentRealmController {
                 case 'child-required':
                     errorStr += 'lowest child requires childAttr (parentName, var) at name "' + name + '"';
                     break;
+                case 'var-attr-missing':
+                    errorStr += 'DrinkVar params missing (price, size) params at name "' + name + '"';
+                    break;
                 }
             }
             errors.push(errorStr);
@@ -48,23 +51,23 @@ class DrinkHelper extends ParentRealmController {
 
         // search for duplicate names
         let namesArr = [];
-        menu.defaultParent.forEach((defaultParentItem, x) => {
+        menu.defaultParents.forEach((defaultParentsItem, x) => {
             namesArr.forEach((namesArrItem, y) => {
-                if (defaultParentItem.name === namesArrItem) {
+                if (defaultParentsItem.name === namesArrItem) {
                     // throw error
-                    createErr(this.defaultParent, 'duplicate', defaultParentItem.name);
+                    createErr(this.defaultParents, 'duplicate', defaultParentsItem.name);
                 } else {
-                    namesArr.push(defaultParentItem.name);
+                    namesArr.push(defaultParentsItem.name);
                 }
             });
         });
-        let defaultParentChecklist = menu.defaultParent;
+        let defaultParentsChecklist = menu.defaultParents;
 
         // --- check drinks
 
         let checkObj = (obj, parentObj = false, index = [], nameChain = []) => {
             // prepare check var
-            let defaultFound = !!(parentObj.default);
+            let defaultFound = !(parentObj.default);
             obj.forEach((item, x) => {
                 // prepare new index
                 let newIndex = index.slice();
@@ -80,11 +83,11 @@ class DrinkHelper extends ParentRealmController {
                 }
                 // check default parent
                 if (nameChain.length) {
-                    for (let y = 0; y < defaultParentChecklist.length; y++) {
-                        let defaultParentItem = defaultParentChecklist[y];
-                        if (defaultParentItem.name === item.name && nameChain[nameChain.length - 1] === defaultParentItem.parent) {
+                    for (let y = 0; y < defaultParentsChecklist.length; y++) {
+                        let defaultParentsItem = defaultParentsChecklist[y];
+                        if (defaultParentsItem.name === item.name && nameChain[nameChain.length - 1] === defaultParentsItem.parent) {
                             // remove parent item from checklist
-                            defaultParentChecklist.splice(y, 1);
+                            defaultParentsChecklist.splice(y, 1);
                             break;
                         }
                     }
@@ -103,6 +106,14 @@ class DrinkHelper extends ParentRealmController {
                 } else if (!item.child && (!item.productName || !item.var)) {
                     createErr(this.drinks, 'child-required', item.name, newIndex);
                 }
+                // check if drinkVar is set correctly
+                if (!item.child && item.var) {
+                    item.var.forEach((drinkVar) => {
+                        if (!drinkVar.price || !drinkVar.size) {
+                            createErr(this.drinks, 'var-attr-missing', item.name, newIndex);
+                        }
+                    });
+                }
                 // call new child object recursive
                 if (item.child && item.child.length) {
                     let newNameChain = nameChain.slice();
@@ -117,9 +128,9 @@ class DrinkHelper extends ParentRealmController {
         checkObj(menu.drinks);
 
         // checklists
-        if (defaultParentChecklist.length) {
-            defaultParentChecklist.forEach((defaultParent, x) => {
-                createErr(this.defaultParent, 'defaultParent-not-found', defaultParent.name);
+        if (defaultParentsChecklist.length) {
+            defaultParentsChecklist.forEach((defaultParents, x) => {
+                createErr(this.defaultParents, 'defaultParent-not-found', defaultParents.name);
             });
         }
 
@@ -147,7 +158,7 @@ class DrinkHelper extends ParentRealmController {
         };
         newMenu.drinks = addDrinkId(newMenu.drinks);
 
-        // defaultParent
+        // defaultParents
         newMenu.defaultParents.map((item) => {
             item.id = uuidv4();
         });
