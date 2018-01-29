@@ -28,7 +28,7 @@ class RealmRestaurantController extends ParentRealmController {
         }
     };
     updateRestaurant (id, newData) {
-        return this.updateObject(this.className, id, newData, ['name', 'address', 'drinkMenus']);
+        return this.updateObject(this.className, id, newData, ['name', 'address', 'menus']);
     };
 }
 module.exports = RealmRestaurantController;

@@ -1,5 +1,5 @@
-const MenuDefaultParentsSchema = {
-    name: 'MenuDefaultParents',
+const MenuDefaultParentSchema = {
+    name: 'MenuDefaultParent',
     primaryKey: 'id',
     properties: {
         id: 'string',
@@ -7,4 +7,4 @@ const MenuDefaultParentsSchema = {
         parent: 'string'
     }
 };
-module.exports = MenuDefaultParentsSchema;
+module.exports = MenuDefaultParentSchema;

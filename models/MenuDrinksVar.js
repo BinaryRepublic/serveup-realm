@@ -4,7 +4,8 @@ const MenuDrinksVarSchema = {
     properties: {
         id: 'string',
         size: 'int',
-        price: 'float'
+        price: 'double',
+        default: 'bool?'
     }
 };
 module.exports = MenuDrinksVarSchema;

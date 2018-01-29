@@ -7,11 +7,10 @@ const MenuDrinksSchema = {
         name: 'string',
         synonym: 'string[]',
         default: 'string?',
-        child: 'Drink[]',
+        child: 'MenuDrinks[]',
         productName: 'string?',
-        var: 'DrinkVar[]',
-        alone: 'bool?',
-        restaurantId: 'string'
+        var: 'MenuDrinksVar[]',
+        alone: 'bool?'
     }
 };
 module.exports = MenuDrinksSchema;

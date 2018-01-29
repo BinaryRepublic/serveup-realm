@@ -1,4 +1,4 @@
-'use_strict';
+'use strict';
 
 const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
@@ -29,7 +29,9 @@ class RealmOrderController extends ParentRealmController {
             orderJSON.items = this.orderItemController.createItemsFromJSONArray(orderJSON.id, orderItemsArray);
             let order = this.createObject(this.className, orderJSON);
             return order;
-        }
+        } else {
+            return;
+        };
     };
     updateOrder (id, newData) {
         let order = this.updateObject(this.className, id, newData, ['status']);

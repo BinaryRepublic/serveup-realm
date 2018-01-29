@@ -7,7 +7,7 @@ const RestaurantSchema = {
         account: 'Account',
         name: 'string',
         address: 'Address',
-        drinkMenus: 'DrinkMenu[]'
+        menus: 'Menu[]'
     }
 };
 module.exports = RestaurantSchema;

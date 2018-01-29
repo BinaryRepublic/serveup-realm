@@ -6,7 +6,7 @@ const MenuSchema = {
         created: 'date',
         name: 'string',
         drinks: 'MenuDrinks[]',
-        defaultParents: 'MenuDefaultParents[]',
+        defaultParents: 'MenuDefaultParent[]',
         restaurantId: 'string'
     }
 };
