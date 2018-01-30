@@ -1,0 +1,14 @@
+{
+  "items": [
+    {
+      "name": "Bier",
+      "size": 500,
+      "nb": 2
+    },
+    {
+      "name": "Wasser",
+      "size": 300,
+      "nb": 1
+    }
+  ]
+}

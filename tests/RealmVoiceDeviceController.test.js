@@ -12,10 +12,11 @@ var account;
 describe('RealmVoiceDeviceController', () => {
     it('Create object and check methods', () => {
         const controller = new RealmVoiceDeviceController();
-        expect(controller.getVoiceDevice).to.be.a('Function');
-        expect(controller.getVoiceDevices).to.be.a('Function');
+        expect(controller.getVoiceDeviceById).to.be.a('Function');
+        expect(controller.getVoiceDevicesByRestaurantId).to.be.a('Function');
         expect(controller.createVoiceDevice).to.be.a('Function');
         expect(controller.updateVoiceDevice).to.be.a('Function');
+        expect(controller.deleteVoiceDevice).to.be.a('Function');
     });
     describe('Valid Data', () => {
         it('createVoiceDevice', (done) => {
@@ -28,10 +29,9 @@ describe('RealmVoiceDeviceController', () => {
                     let controller = new RealmVoiceDeviceController();
                     controller.realm.then(realm => {
                         const mock = require('./mockData/voicedevice/createValid.json');
-
                         voiceDevice = controller.createVoiceDevice(restaurant.id, mock);
                         expect(voiceDevice.number).to.equal(mock.number);
-                        expect(voiceDevice.restaurant).to.deep.equal(restaurant);
+                        expect(voiceDevice.restaurantId).to.deep.equal(restaurant.id);
                         expect(voiceDevice.created).to.be.an('date');
                         expect(voiceDevice.id).to.be.an('string');
                         expect(voiceDevice.number).to.be.an('number');
@@ -58,25 +58,37 @@ describe('RealmVoiceDeviceController', () => {
                 done(err);
             });
         });
-        it('getVoiceDevice', (done) => {
+        it('getVoiceDeviceById', (done) => {
             const controller = new RealmVoiceDeviceController();
             controller.realm.then(realm => {
-                let getVoiceDevice = controller.getVoiceDevice(voiceDevice.id);
+                let getVoiceDevice = controller.getVoiceDeviceById(voiceDevice.id);
                 expect(getVoiceDevice).to.deep.equal(voiceDevice);
                 done();
             }).catch(err => {
                 done(err);
             });
         });
-        it('getVoiceDevices', (done) => {
+        it('getVoiceDevicesByRestaurantId', (done) => {
             const controller = new RealmVoiceDeviceController();
             controller.realm.then(realm => {
-                let voiceDevices = controller.getVoiceDevices(restaurant.id);
+                let voiceDevices = controller.getVoiceDevicesByRestaurantId(restaurant.id);
                 expect(voiceDevices).to.have.lengthOf(1);
                 let first = voiceDevices[0];
                 expect(first).to.deep.equal(voiceDevice);
                 done();
             }).catch(err => {
+                done(err);
+            });
+        });
+        it('deleteOrder', (done) => {
+            const controller = new RealmVoiceDeviceController();
+            controller.realm.then((realm) => {
+                let result = controller.deleteVoiceDevice(voiceDevice.id);
+                result = controller.formatRealmObj(result);
+                voiceDevice = controller.formatRealmObj(voiceDevice);
+                expect(result).is.deep.equal(voiceDevice);
+                done();
+            }).catch((err) => {
                 done(err);
             });
         });
@@ -105,27 +117,37 @@ describe('RealmVoiceDeviceController', () => {
                 done(err);
             });
         });
-        it('getVoiceDevice', (done) => {
+        it('getVoiceDeviceById', (done) => {
             const controller = new RealmVoiceDeviceController();
             controller.realm.then(realm => {
                 let id = 'rpiefBrxxYQn9HUzYUiKXqKwi0IsGR';
-                let getVoiceDevice = controller.getVoiceDevice(id);
+                let getVoiceDevice = controller.getVoiceDeviceById(id);
                 expect(getVoiceDevice).to.be.undefined;
                 done();
             }).catch(err => {
                 done(err);
             });
         });
-        it('getVoiceDevices', (done) => {
+        it('getVoiceDevicesByRestaurantId', (done) => {
             const controller = new RealmVoiceDeviceController();
             controller.realm.then(realm => {
                 let id = 'rpiefBrxxYQn9HUzYUiKXqKwi0IsGR';
-                let getVoiceDevices = controller.getVoiceDevices(id);
+                let getVoiceDevices = controller.getVoiceDevicesByRestaurantId(id);
                 expect(getVoiceDevices).to.have.lengthOf(0);
                 let first = getVoiceDevices[0];
                 expect(first).to.be.undefined;
                 done();
             }).catch(err => {
+                done(err);
+            });
+        });
+        it('deleteOrder', (done) => {
+            const controller = new RealmVoiceDeviceController();
+            controller.realm.then((realm) => {
+                let result = controller.deleteVoiceDevice('invalid-id');
+                expect(result).to.be.undefined;
+                done();
+            }).catch((err) => {
                 done(err);
             });
         });

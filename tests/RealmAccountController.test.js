@@ -10,9 +10,10 @@ var address;
 describe('RealmAccountController', () => {
     it('Create object and check methods', (done) => {
         const controller = new RealmAccountController();
-        expect(controller.getAccount).to.be.a('Function');
+        expect(controller.getAccountById).to.be.a('Function');
         expect(controller.createAccount).to.be.a('Function');
         expect(controller.updateAccount).to.be.a('Function');
+        expect(controller.deleteAccount).to.be.a('Function');
         done();
     });
     describe('Valid Data', () => {
@@ -59,13 +60,24 @@ describe('RealmAccountController', () => {
                 done(err);
             });
         });
-        it('getAccount', (done) => {
+        it('getAccountById', (done) => {
             const controller = new RealmAccountController();
             controller.realm.then(realm => {
-                let getAccount = controller.getAccount(account.id);
+                let getAccount = controller.getAccountById(account.id);
                 getAccount = controller.formatRealmObj(getAccount);
                 account = controller.formatRealmObj(account);
                 expect(getAccount).to.deep.equal(account);
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+        it('deleteAccount', (done) => {
+            const controller = new RealmAccountController();
+            controller.realm.then(realm => {
+                let result = controller.deleteAccount(account.id);
+                result = controller.formatRealmObj(result);
+                expect(result).to.deep.equal(account);
                 done();
             }).catch(err => {
                 done(err);
@@ -99,11 +111,21 @@ describe('RealmAccountController', () => {
                 done(err);
             });
         });
-        it('getAccount', (done) => {
+        it('getAccountById', (done) => {
             const controller = new RealmAccountController();
             controller.realm.then(realm => {
-                let getAccount = controller.getAccount('xxxxxxsomerandomaccountid123456789');
+                let getAccount = controller.getAccountById('xxxxxxsomerandomaccountid123456789');
                 expect(getAccount).to.be.undefined;
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+        it('deleteAccount', (done) => {
+            const controller = new RealmAccountController();
+            controller.realm.then(realm => {
+                let result = controller.deleteAccount('invalid-id');
+                expect(result).to.be.undefined;
                 done();
             }).catch(err => {
                 done(err);

@@ -12,10 +12,11 @@ let account;
 describe('RealmRestaurantController', () => {
     it('Create object and check methods', () => {
         const controller = new RealmRestaurantController();
-        expect(controller.getRestaurant).to.be.a('Function');
-        expect(controller.getRestaurants).to.be.a('Function');
+        expect(controller.getRestaurantById).to.be.a('Function');
+        expect(controller.getRestaurantsByAccountId).to.be.a('Function');
         expect(controller.createRestaurant).to.be.a('Function');
         expect(controller.updateRestaurant).to.be.a('Function');
+        expect(controller.deleteRestaurant).to.be.a('Function');
     });
     describe('Valid Data', () => {
         it('createRestaurant', (done) => {
@@ -31,16 +32,16 @@ describe('RealmRestaurantController', () => {
                     restaurant = controller.createRestaurant(account.id, mock);
 
                     account = controller.formatRealmObj(account);
-                    restaurant = controller.formatRealmObj(restaurant);
+                    let restaurantFormatted = controller.formatRealmObj(restaurant);
                     mock = controller.formatRealmObj(mock);
 
-                    expect(restaurant.name).to.equal(mock.name);
-                    expect(restaurant.address).to.deep.equal(mock.address);
-                    expect(restaurant.drinkMenus).to.deep.equal(mock.drinkMenus);
-                    expect(restaurant.account).to.deep.equal(account);
+                    expect(restaurantFormatted.name).to.equal(mock.name);
+                    expect(restaurantFormatted.address).to.deep.equal(mock.address);
+                    expect(restaurantFormatted.drinkMenus).to.deep.equal(mock.drinkMenus);
+                    expect(restaurantFormatted.account).to.deep.equal(account);
                     expect(restaurant.created).to.be.an('date');
-                    expect(restaurant.id).to.be.an('string');
-                    expect(restaurant.id).not.to.be.empty;
+                    expect(restaurantFormatted.id).to.be.an('string');
+                    expect(restaurantFormatted.id).not.to.be.empty;
                     done();
                 }).catch((err) => {
                     done(err);
@@ -55,35 +56,49 @@ describe('RealmRestaurantController', () => {
                 const newName = 'rpiefBrxxYQn9HUzYUiKXqKwi0IsGR';
                 let updated = controller.updateRestaurant(restaurant.id, { name: newName });
 
-                restaurant.name = newName;
                 updated = controller.formatRealmObj(updated);
+                let restaurantFormatted = controller.formatRealmObj(restaurant);
 
                 expect(updated.name).to.equal(newName);
-                expect(updated).to.deep.equal(restaurant);
+                expect(updated).to.deep.equal(restaurantFormatted);
                 done();
             }).catch((err) => {
                 done(err);
             });
         });
-        it('getRestaurant', (done) => {
+        it('getRestaurantById', (done) => {
             const controller = new RealmRestaurantController();
             controller.realm.then((realm) => {
-                let getRestaurant = controller.getRestaurant(restaurant.id);
+                let getRestaurant = controller.getRestaurantById(restaurant.id);
                 getRestaurant = controller.formatRealmObj(getRestaurant);
-                expect(getRestaurant).to.deep.equal(restaurant);
+                let restaurantFormatted = controller.formatRealmObj(restaurant);
+                expect(getRestaurant).to.deep.equal(restaurantFormatted);
                 done();
             }).catch((err) => {
                 done(err);
             });
         });
-        it('getRestaurants', (done) => {
+        it('getRestaurantsByAccountId', (done) => {
             const controller = new RealmRestaurantController();
             controller.realm.then((realm) => {
-                let restaurants = controller.getRestaurants(account.id);
+                let restaurants = controller.getRestaurantsByAccountId(account.id);
                 restaurants = controller.formatRealmObj(restaurants);
                 expect(restaurants).to.have.lengthOf(1);
                 const first = restaurants[0];
-                expect(first).to.deep.equal(restaurant);
+                let restaurantFormatted = controller.formatRealmObj(restaurant);
+                expect(first).to.deep.equal(restaurantFormatted);
+                done();
+            }).catch((err) => {
+                done(err);
+            });
+        });
+        it('deleteRestaurant', (done) => {
+            const controller = new RealmRestaurantController();
+            controller.realm.then((realm) => {
+                let result = controller.deleteRestaurant(restaurant.id);
+                result = controller.formatRealmObj(result);
+                restaurant = controller.formatRealmObj(restaurant);
+                expect(result).to.deep.equal(restaurant);
                 done();
             }).catch((err) => {
                 done(err);
@@ -114,25 +129,35 @@ describe('RealmRestaurantController', () => {
                 done(err);
             });
         });
-        it('getRestaurant', (done) => {
+        it('getRestaurantById', (done) => {
             const controller = new RealmRestaurantController();
             controller.realm.then((realm) => {
                 const id = 'rpiefBrxxYQn9HUzYUiKXqKwi0IsGR';
-                const getRestaurant = controller.getRestaurant(id);
+                const getRestaurant = controller.getRestaurantById(id);
                 expect(getRestaurant).to.be.undefined;
                 done();
             }).catch((err) => {
                 done(err);
             });
         });
-        it('getRestaurants', (done) => {
+        it('getRestaurantsByAccountId', (done) => {
             const controller = new RealmRestaurantController();
             controller.realm.then((realm) => {
                 const id = 'rpiefBrxxYQn9HUzYUiKXqKwi0IsGR';
-                const restaurants = controller.getRestaurants(id);
+                const restaurants = controller.getRestaurantsByAccountId(id);
                 expect(restaurants).to.have.lengthOf(0);
                 const first = restaurants[0];
                 expect(first).to.be.undefined;
+                done();
+            }).catch((err) => {
+                done(err);
+            });
+        });
+        it('deleteRestaurant', (done) => {
+            const controller = new RealmRestaurantController();
+            controller.realm.then((realm) => {
+                let result = controller.deleteRestaurant('invalid-id');
+                expect(result).to.be.undefined;
                 done();
             }).catch((err) => {
                 done(err);

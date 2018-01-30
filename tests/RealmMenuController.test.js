@@ -3,17 +3,18 @@
 const RealmMenuController = require('../controller/RealmMenuController');
 const expect = require('chai').expect;
 
-describe ('RealmDrinkController', () => {
+describe ('RealmMenuController', () => {
     it ('Create object and check methods', (done) => {
         const controller = new RealmMenuController();
         expect(controller.getMenuById).to.be.a('Function');
         expect(controller.createMenu).to.be.a('Function');
         expect(controller.validateMenu).to.be.a('Function');
         expect(controller.updateMenu).to.be.a('Function');
+        expect(controller.deleteMenu).to.be.a('Function');
         done();
     });
     describe ('Valid Data', () => {
-        let menuId;
+        let menu;
         it ('createMenu', (done) => {
             const controller = new RealmMenuController();
             controller.realm.then(realm => {
@@ -22,7 +23,7 @@ describe ('RealmDrinkController', () => {
                 sampleMenu = controller.formatRealmObj(sampleMenu, true);
                 createdMenu = controller.formatRealmObj(createdMenu, true);
                 expect(createdMenu).is.deep.equal(sampleMenu);
-                menuId = createdMenu.id;
+                menu = createdMenu;
                 done();
             }).catch((err)=>{
                 done(err);
@@ -31,13 +32,13 @@ describe ('RealmDrinkController', () => {
         it ('getMenuById', (done) => {
             const controller = new RealmMenuController();
             controller.realm.then(realm => {
-                let menu = controller.getMenuById(menuId);
-                menu = controller.formatRealmObj(menu);
-                expect(menu).to.be.an('Object');
-                expect(menu).to.have.property('drinks');
-                expect(menu).to.have.property('defaultParents');
-                expect(menu.drinks).to.be.an('Array');
-                expect(menu.drinks[0]).to.have.property('name');
+                let result = controller.getMenuById(menu.id);
+                result = controller.formatRealmObj(result);
+                expect(result).to.be.an('Object');
+                expect(result).to.have.property('drinks');
+                expect(result).to.have.property('defaultParents');
+                expect(result.drinks).to.be.an('Array');
+                expect(result.drinks[0]).to.have.property('name');
                 done();
             }).catch((err) => {
                 done(err);
@@ -58,10 +59,22 @@ describe ('RealmDrinkController', () => {
             const controller = new RealmMenuController();
             controller.realm.then(realm => {
                 let sampleMenuUpdate = require('./mockData/menu/updateValid');
-                let updatedMenu = controller.updateMenu(menuId, sampleMenuUpdate);
+                let updatedMenu = controller.updateMenu(menu.id, sampleMenuUpdate);
                 sampleMenuUpdate = controller.formatRealmObj(sampleMenuUpdate, true);
                 updatedMenu = controller.formatRealmObj(updatedMenu, true);
                 expect(updatedMenu).is.deep.equal(sampleMenuUpdate);
+                menu = updatedMenu;
+                done();
+            }).catch((err) => {
+                done(err);
+            })
+        });
+        it ('deleteMenu', (done) => {
+            const controller = new RealmMenuController();
+            controller.realm.then(realm => {
+                let result = controller.deleteMenu(menu.id);
+                result = controller.formatRealmObj(result, true);
+                expect(result).to.deep.equal(menu);
                 done();
             }).catch((err) => {
                 done(err);
@@ -115,6 +128,16 @@ describe ('RealmDrinkController', () => {
                 result = controller.formatRealmObj(result, true);
                 expect(result).not.to.be.true;
                 expect(result).not.to.be.empty;
+                done();
+            }).catch((err) => {
+                done(err);
+            })
+        });
+        it ('deleteMenu', (done) => {
+            const controller = new RealmMenuController();
+            controller.realm.then(realm => {
+                let result = controller.deleteMenu('invalid-id');
+                expect(result).to.be.undefined;
                 done();
             }).catch((err) => {
                 done(err);
