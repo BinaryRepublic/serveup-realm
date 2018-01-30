@@ -61,17 +61,25 @@ class ParentRealmController {
             } else {
                 result = {};
                 for (let key in worker) {
-                    let newObj = this.formatRealmObj(worker[key], emptyToUndefined);
-                    if (newObj !== undefined) {
-                        result[key] = newObj;
-                    } else {
-                        delete result[key];
+                    // remove realm flags
+                    if (key !== 'deleted' && key !== 'created') {
+                        let newObj = this.formatRealmObj(worker[key], emptyToUndefined);
+                        if (newObj !== undefined) {
+                            result[key] = newObj;
+                        } else {
+                            delete result[key];
+                        }
                     }
                 }
             }
         } else {
             if (Array.isArray(objectElem) && !objectElem.length && emptyToUndefined) {
                 result = undefined;
+            } else if (Array.isArray(worker)) {
+                result = [];
+                worker.forEach((workerItem, x) => {
+                    result[x] = this.formatRealmObj(workerItem, emptyToUndefined);
+                });
             } else {
                 result = objectElem;
             }
@@ -81,20 +89,17 @@ class ParentRealmController {
 
     // Abstract methods
     objectWithId (className, id) {
-        let object = this.realm.objects(className).filtered('id = $0', id);
+        let object = this.realm.objects(className).filtered('id = $0 && deleted == null', id);
         if (object && object.length === 1) {
             return object[0];
         }
     };
     objectsWithFilter (className, filter) {
-        let objects = this.realm.objects(className).filtered(filter);
-        return objects;
+        filter = '(' + filter + ') && deleted == null';
+        return this.realm.objects(className).filtered(filter);
     };
     createObject (className, objData) {
-        if (this.valid(className, objData)) {
-            let object = this.writeObject(this.className, objData, false);
-            return object;
-        }
+        return this.writeObject(className, objData, false);
     };
     updateObject (className, objectId, objData, legalAttributes) {
         for (var property in objData) {
@@ -104,26 +109,15 @@ class ParentRealmController {
                 }
             }
         }
-        objData.id = objectId;
-        let object = this.writeObject(className, objData, true);
-        return object;
-    };
-
-    // Validation
-    valid (className, obj) {
-        let realmSchema = this[className];
-        var valid = true;
-        for (var property in realmSchema.properties) {
-            if (!obj.hasOwnProperty(property)) {
-                valid = false;
-                if (process.env.DEBUG) {
-                    console.error('MISSING: ' + property + ' in ' + className);
-                }
-                break;
-            }
+        let updateObj = this.objectWithId(className, objectId);
+        if (updateObj && updateObj.deleted === null) {
+            objData.id = objectId;
+            return this.writeObject(className, objData, true);
         }
-        return valid;
-    }
+    };
+    deleteObject (className, objectId) {
+        return this.updateObject(className, objectId, {deleted: new Date()}, ['deleted']);
+    };
 
     // Realm methods
     writeObject (className, obj, update) {

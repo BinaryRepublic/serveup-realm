@@ -10,10 +10,10 @@ class RealmRestaurantController extends ParentRealmController {
         this.className = 'Restaurant';
         this.addressController = new RealmAddressController();
     }
-    getRestaurant (id) {
+    getRestaurantById (id) {
         return this.objectWithId(this.className, id);
     };
-    getRestaurants (accountId) {
+    getRestaurantsByAccountId (accountId) {
         let filterString = `account.id == '${accountId}'`;
         return this.objectsWithFilter(this.className, filterString);
     };
@@ -23,12 +23,13 @@ class RealmRestaurantController extends ParentRealmController {
             restaurantJSON.id = uuidv4();
             restaurantJSON.created = new Date();
             return this.createObject(this.className, restaurantJSON);
-        } else {
-
         }
     };
     updateRestaurant (id, newData) {
         return this.updateObject(this.className, id, newData, ['name', 'address', 'menus']);
     };
+    deleteRestaurant (id) {
+        return this.deleteObject(this.className, id);
+    }
 }
 module.exports = RealmRestaurantController;

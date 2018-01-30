@@ -53,5 +53,8 @@ class RealmDrinkController extends ParentRealmController {
             return validation;
         }
     }
+    deleteMenu (id) {
+        return this.deleteObject(this.className, id);
+    }
 }
 module.exports = RealmDrinkController;

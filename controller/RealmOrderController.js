@@ -2,40 +2,50 @@
 
 const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
-const RealmOrderItemController = require('./RealmOrderItemController');
+const RealmRestaurantController = require('./RealmRestaurantController');
+const RealmVoiceDeviceController = require('./RealmVoiceDeviceController');
 
 class RealmOrderController extends ParentRealmController {
     constructor (callback) {
         super(callback);
         this.className = 'Order';
-        this.orderItemController = new RealmOrderItemController();
+        this.voiceDeviceController = new RealmVoiceDeviceController();
+        this.restaurantController = new RealmRestaurantController();
     }
-    getOrder (id) {
-        let order = this.objectWithId(this.className, id);
-        return order;
+    getOrderById (id) {
+        return this.objectWithId(this.className, id);
     };
-    getOrders (restaurantId) {
-        let filterString = `restaurant.id == '${restaurantId}'`;
-        let orders = this.objectsWithFilter(this.className, filterString);
-        return orders;
+    getOrdersByRestaurantId (restaurantId) {
+        // check if restaurant exists
+        if (this.restaurantController.getRestaurantById(restaurantId)) {
+            let filterString = `restaurantId == '${restaurantId}'`;
+            return this.objectsWithFilter(this.className, filterString);
+        }
     };
-    createOrder (voiceDeviceId, orderItemsArray) {
-        let voiceDevice = this.objectWithId('VoiceDevice', voiceDeviceId);
+    createOrder (voiceDeviceId, orderItems) {
+        let voiceDevice = this.voiceDeviceController.getVoiceDeviceById(voiceDeviceId);
         if (voiceDevice) {
-            orderJSON.id = uuidv4();
-            orderJSON.created = new Date();
-            orderJSON.voiceDevice = voiceDevice;
-            orderJSON.restaurant = voiceDevice.restaurant;
-            orderJSON.items = this.orderItemController.createItemsFromJSONArray(orderJSON.id, orderItemsArray);
-            let order = this.createObject(this.className, orderJSON);
-            return order;
-        } else {
-            return;
-        };
+            let date = new Date();
+            orderItems.forEach((item) => {
+                item.id = uuidv4();
+                item.created = date;
+            });
+            let newOrder = {
+                id: uuidv4(),
+                created: date,
+                timestamp: date,
+                voiceDeviceId: voiceDevice.id,
+                restaurantId: voiceDevice.restaurantId,
+                items: orderItems
+            };
+            return this.createObject(this.className, newOrder);
+        }
     };
     updateOrder (id, newData) {
-        let order = this.updateObject(this.className, id, newData, ['status']);
-        return order;
+        return this.updateObject(this.className, id, newData, ['status']);
+    };
+    deleteOrder (id) {
+        return this.deleteObject(this.className, id);
     };
 }
 module.exports = RealmOrderController;

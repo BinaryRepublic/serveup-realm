@@ -1,4 +1,4 @@
-'use_strict';
+'use strict';
 
 const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
@@ -9,8 +9,7 @@ class RealmAddressController extends ParentRealmController {
         this.className = 'Address';
     }
     getAddressById (id) {
-        let address = this.objectWithId(this.className, id);
-        return address;
+        return this.objectWithId(this.className, id);
     };
     createAddress (addressJSON) {
         addressJSON.id = uuidv4();
@@ -18,9 +17,11 @@ class RealmAddressController extends ParentRealmController {
         let address = this.createObject(this.className, addressJSON);
         return address;
     };
-    updateAddressWithId (id, newData) {
-        let address = this.updateObject(this.className, id, newData, ['street', 'postCode', 'city', 'country']);
-        return address;
+    updateAddress (id, newData) {
+        return this.updateObject(this.className, id, newData, ['street', 'postCode', 'city', 'country']);
+    };
+    deleteAddress (id) {
+        return this.deleteObject(this.className, id);
     };
 }
 module.exports = RealmAddressController;
