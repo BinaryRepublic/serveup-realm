@@ -141,16 +141,19 @@ class DrinkHelper extends ParentRealmController {
         }
     }
     prepareInsert (newMenu) {
+        let date = new Date();
         // drinks
         let addDrinkId = (obj, layer1 = true) => {
             obj.forEach((drink) => {
                 drink.id = uuidv4();
                 drink.layer1 = layer1;
+                drink.created = date;
                 if (drink.child) {
                     drink.child = addDrinkId(drink.child, false);
                 } else if (drink.var) {
                     drink.var.forEach((drinkVar) => {
                         drinkVar.id = uuidv4();
+                        drinkVar.created = date;
                     });
                 }
             });
@@ -161,6 +164,7 @@ class DrinkHelper extends ParentRealmController {
         // defaultParents
         newMenu.defaultParents.map((item) => {
             item.id = uuidv4();
+            item.created = date;
         });
 
         return newMenu;
