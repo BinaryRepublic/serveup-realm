@@ -5,9 +5,10 @@ const AdressSchema = {
         id: 'string',
         created: 'date',
         street: 'string',
-        postCode: 'int',
+        postCode: 'string',
         city: 'string',
-        country: 'string'
+        country: 'string',
+        deleted: 'date?'
     }
 };
 module.exports = AdressSchema;

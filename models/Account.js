@@ -9,7 +9,8 @@ const AccountSchema = {
         firstName: 'string',
         surname: 'string',
         address: 'Address',
-        phone: 'string'
+        phone: 'string',
+        deleted: 'date?'
     }
 };
 module.exports = AccountSchema;

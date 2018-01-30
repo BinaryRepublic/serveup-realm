@@ -3,8 +3,10 @@ const MenuDefaultParentSchema = {
     primaryKey: 'id',
     properties: {
         id: 'string',
+        created: 'date',
         name: 'string',
-        parent: 'string'
+        parent: 'string',
+        deleted: 'date?'
     }
 };
 module.exports = MenuDefaultParentSchema;

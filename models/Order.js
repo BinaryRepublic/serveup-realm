@@ -3,12 +3,13 @@ const OrderSchema = {
     primaryKey: 'id',
     properties: {
         id: 'string',
+        created: 'date',
         timestamp: 'date',
-        items: 'OrderItem',
-        amount: 'double',
-        voiceDevice: 'VoiceDevice',
-        restaurant: 'Restaurant',
-        status: {type: 'int', default: 0}
+        items: 'OrderItem[]',
+        voiceDeviceId: 'string',
+        restaurantId: 'string',
+        status: {type: 'int', default: 0},
+        deleted: 'date?'
     }
 };
 module.exports = OrderSchema;

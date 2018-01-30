@@ -3,6 +3,7 @@ const MenuDrinksSchema = {
     primaryKey: 'id',
     properties: {
         id: 'string',
+        created: 'date',
         layer1: 'bool',
         name: 'string',
         synonym: 'string[]',
@@ -10,7 +11,8 @@ const MenuDrinksSchema = {
         child: 'MenuDrinks[]',
         productName: 'string?',
         var: 'MenuDrinksVar[]',
-        alone: 'bool?'
+        alone: 'bool?',
+        deleted: 'date?'
     }
 };
 module.exports = MenuDrinksSchema;

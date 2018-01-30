@@ -7,7 +7,8 @@ const MenuSchema = {
         name: 'string',
         drinks: 'MenuDrinks[]',
         defaultParents: 'MenuDefaultParent[]',
-        restaurantId: 'string'
+        restaurantId: 'string',
+        deleted: 'date?'
     }
 };
 module.exports = MenuSchema;

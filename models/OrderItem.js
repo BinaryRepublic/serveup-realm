@@ -3,10 +3,11 @@ const OrderItemSchema = {
     primaryKey: 'id',
     properties: {
         id: 'string',
+        created: 'date',
         name: 'string',
         size: 'int',
-        count: 'int',
-        orderId: 'string'
+        nb: 'int',
+        deleted: 'date?'
     }
 };
 module.exports = OrderItemSchema;

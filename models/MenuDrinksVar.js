@@ -3,9 +3,11 @@ const MenuDrinksVarSchema = {
     primaryKey: 'id',
     properties: {
         id: 'string',
+        created: 'date',
         size: 'int',
         price: 'double',
-        default: 'bool?'
+        default: 'bool?',
+        deleted: 'date?'
     }
 };
 module.exports = MenuDrinksVarSchema;

@@ -2,10 +2,11 @@ const VoiceDeviceSchema = {
     name: 'VoiceDevice',
     primaryKey: 'id',
     properties: {
-	  	id: 'string',
+        id: 'string',
+        created: 'date',
         number: 'int',
-        restaurant: 'Restaurant',
-        created: 'date'
+        restaurantId: 'string',
+        deleted: 'date?'
     }
 };
 module.exports = VoiceDeviceSchema;
