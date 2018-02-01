@@ -7,7 +7,7 @@ const AccountSchema = {
         mail: 'string',
         password: 'string',
         firstName: 'string',
-        surname: 'string',
+        surName: 'string',
         address: 'Address',
         phone: 'string',
         deleted: 'date?'
