@@ -26,6 +26,9 @@ class RealmDrinkController extends ParentRealmController {
     getMenuById (menuId) {
         return this.objectWithId(this.className, menuId);
     }
+    getMenuByRestaurantId (restaurantId) {
+        return this.objectsWithFilter(this.className, 'restaurantId == "' + restaurantId + '"');
+    }
     // --- Create Menu
     createMenu (newMenu) {
         let validation = this.validateMenu(newMenu);

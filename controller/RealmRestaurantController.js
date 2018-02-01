@@ -26,7 +26,7 @@ class RealmRestaurantController extends ParentRealmController {
         }
     };
     updateRestaurant (id, newData) {
-        return this.updateObject(this.className, id, newData, ['name', 'address', 'menus']);
+        return this.updateObject(this.className, id, newData, ['name', 'address']);
     };
     deleteRestaurant (id) {
         return this.deleteObject(this.className, id);

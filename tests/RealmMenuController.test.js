@@ -1,12 +1,17 @@
 'use strict';
 
 const RealmMenuController = require('../controller/RealmMenuController');
+const RealmRestaurantController = require('../controller/RealmRestaurantController');
+const RealmAccountController = require('../controller/RealmAccountController');
 const expect = require('chai').expect;
+
+let menu, restaurant, account;
 
 describe ('RealmMenuController', () => {
     it ('Create object and check methods', (done) => {
         const controller = new RealmMenuController();
         expect(controller.getMenuById).to.be.a('Function');
+        expect(controller.getMenuByRestaurantId).to.be.a('Function');
         expect(controller.createMenu).to.be.a('Function');
         expect(controller.validateMenu).to.be.a('Function');
         expect(controller.updateMenu).to.be.a('Function');
@@ -14,19 +19,34 @@ describe ('RealmMenuController', () => {
         done();
     });
     describe ('Valid Data', () => {
-        let menu;
         it ('createMenu', (done) => {
-            const controller = new RealmMenuController();
-            controller.realm.then(realm => {
-                let sampleMenu = require('./mockData/menu/createValid');
-                let createdMenu = controller.createMenu(sampleMenu);
-                sampleMenu = controller.formatRealmObj(sampleMenu, true);
-                createdMenu = controller.formatRealmObj(createdMenu, true);
-                expect(createdMenu).is.deep.equal(sampleMenu);
-                menu = createdMenu;
-                done();
-            }).catch((err)=>{
-                done(err);
+            const accountController = new RealmAccountController();
+            accountController.realm.then(realm => {
+                let accountMock = require('./mockData/account/createValid');
+                account = accountController.createAccount(accountMock);
+
+                const restaurantController = new RealmRestaurantController();
+                restaurantController.realm.then(realm => {
+                    let restaurantMock = require('./mockData/restaurant/createValid');
+                    restaurant = restaurantController.createRestaurant(account.id, restaurantMock);
+
+                    const menuController = new RealmMenuController();
+                    menuController.realm.then(realm => {
+                        let sampleMenu = require('./mockData/menu/createValid');
+                        sampleMenu.restaurantId = restaurant.id;
+                        menu = menuController.createMenu(sampleMenu);
+                        sampleMenu = menuController.formatRealmObj(sampleMenu, true);
+                        menu = menuController.formatRealmObj(menu, true);
+                        expect(menu).is.deep.equal(sampleMenu);
+                        done();
+                    }).catch((err) => {
+                        done(err);
+                    });
+                }).catch((err) => {
+                    done(err);
+                });
+            }).catch((err) => {
+               done(err);
             });
         });
         it ('getMenuById', (done) => {
@@ -39,6 +59,17 @@ describe ('RealmMenuController', () => {
                 expect(result).to.have.property('defaultParents');
                 expect(result.drinks).to.be.an('Array');
                 expect(result.drinks[0]).to.have.property('name');
+                done();
+            }).catch((err) => {
+                done(err);
+            });
+        });
+        it ('getMenuByRestaurantId', (done) => {
+            const controller = new RealmMenuController();
+            controller.realm.then(realm => {
+                let result = controller.getMenuByRestaurantId(restaurant.id);
+                result = controller.formatRealmObj(result, true);
+                expect(result[0]).to.deep.equal(menu);
                 done();
             }).catch((err) => {
                 done(err);
