@@ -10,6 +10,7 @@ var address;
 describe('RealmAccountController', () => {
     it('Create object and check methods', (done) => {
         const controller = new RealmAccountController();
+        expect(controller.getAccounts).to.be.a('Function');
         expect(controller.getAccountById).to.be.a('Function');
         expect(controller.createAccount).to.be.a('Function');
         expect(controller.updateAccount).to.be.a('Function');
@@ -55,6 +56,18 @@ describe('RealmAccountController', () => {
                 let updatedAccount = controller.updateAccount(account.id, newData);
                 expect(updatedAccount.mail).to.equal(newMail);
                 expect(updatedAccount).to.deep.equal(account);
+                done();
+            }).catch(err => {
+                done(err);
+            });
+        });
+        it('getAccounts', (done) => {
+            const controller = new RealmAccountController();
+            controller.realm.then(realm => {
+                let getAccount = controller.getAccounts();
+                getAccount = controller.formatRealmObj(getAccount);
+                account = controller.formatRealmObj(account);
+                expect(getAccount[getAccount.length-1]).to.deep.equal(account);
                 done();
             }).catch(err => {
                 done(err);

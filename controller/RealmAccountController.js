@@ -10,6 +10,9 @@ class RealmAccountController extends ParentRealmController {
         this.className = 'Account';
         this.addressController = new RealmAddressController();
     }
+    getAccounts () {
+        return this.objectWithClassName(this.className);
+    };
     getAccountById (id) {
         return this.objectWithId(this.className, id);
     };
