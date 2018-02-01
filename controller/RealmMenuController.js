@@ -2,11 +2,14 @@
 
 const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
+const RealmRestaurantController = require('./RealmRestaurantController');
 
 class RealmDrinkController extends ParentRealmController {
     constructor (callback) {
         super(callback);
         this.className = 'Menu';
+
+        this.restaurantController = new RealmRestaurantController();
 
         let MenuHelper = require('../library/MenuHelper');
         this.menuHelper = new MenuHelper();
@@ -27,7 +30,9 @@ class RealmDrinkController extends ParentRealmController {
         return this.objectWithId(this.className, menuId);
     }
     getMenuByRestaurantId (restaurantId) {
-        return this.objectsWithFilter(this.className, 'restaurantId == "' + restaurantId + '"');
+        if (this.restaurantController.getRestaurantById(restaurantId)) {
+            return this.objectsWithFilter(this.className, 'restaurantId == "' + restaurantId + '"');
+        }
     }
     // --- Create Menu
     createMenu (newMenu) {

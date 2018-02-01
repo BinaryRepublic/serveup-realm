@@ -138,6 +138,16 @@ describe ('RealmMenuController', () => {
                 done(err);
             });
         });
+        it ('getMenuByRestaurantId', (done) => {
+            const controller = new RealmMenuController();
+            controller.realm.then(realm => {
+                let result = controller.getMenuByRestaurantId('invalid-id');
+                expect(result).to.be.undefined;
+                done();
+            }).catch((err) => {
+                done(err);
+            });
+        });
         it ('validateMenu', (done) => {
             const controller = new RealmMenuController();
             controller.realm.then(realm => {
