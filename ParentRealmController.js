@@ -88,6 +88,9 @@ class ParentRealmController {
     };
 
     // Abstract methods
+    objectWithClassName (className) {
+        return this.realm.objects(className);
+    };
     objectWithId (className, id) {
         let object = this.realm.objects(className).filtered('id = $0 && deleted == null', id);
         if (object && object.length === 1) {
