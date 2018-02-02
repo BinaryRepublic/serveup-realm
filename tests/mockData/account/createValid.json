@@ -2,7 +2,7 @@
 	"mail": "a@b.c",
 	"password": "123456789",
 	"firstName": "Peter",
-	"surname": "Factory",
+	"surName": "Factory",
 	"street": "Lohmühlenstraße 65",
 	"postCode": "12435",
 	"city": "Berlin",
