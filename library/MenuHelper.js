@@ -12,6 +12,8 @@ class DrinkHelper extends ParentRealmController {
 
     // menu validation
     validateMenu (menu) {
+        // remove empty arrays
+        menu = this.formatRealmObj(menu, true);
         // --- prepare error handling
         let errors = [];
         let createErr = (objName, type, name, index = false) => {
@@ -51,17 +53,20 @@ class DrinkHelper extends ParentRealmController {
 
         // search for duplicate names
         let namesArr = [];
-        menu.defaultParents.forEach((defaultParentsItem, x) => {
-            namesArr.forEach((namesArrItem, y) => {
-                if (defaultParentsItem.name === namesArrItem) {
-                    // throw error
-                    createErr(this.defaultParents, 'duplicate', defaultParentsItem.name);
-                } else {
-                    namesArr.push(defaultParentsItem.name);
-                }
+        let defaultParentsChecklist = [];
+        if (menu.defaultParents) {
+            menu.defaultParents.forEach((defaultParentsItem, x) => {
+                namesArr.forEach((namesArrItem, y) => {
+                    if (defaultParentsItem.name === namesArrItem) {
+                        // throw error
+                        createErr(this.defaultParents, 'duplicate', defaultParentsItem.name);
+                    } else {
+                        namesArr.push(defaultParentsItem.name);
+                    }
+                });
             });
-        });
-        let defaultParentsChecklist = menu.defaultParents;
+            defaultParentsChecklist = menu.defaultParents;
+        }
 
         // --- check drinks
 
