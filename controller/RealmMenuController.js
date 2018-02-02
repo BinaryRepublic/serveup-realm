@@ -4,7 +4,7 @@ const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
 const RealmRestaurantController = require('./RealmRestaurantController');
 
-class RealmDrinkController extends ParentRealmController {
+class RealmMenuController extends ParentRealmController {
     constructor (callback) {
         super(callback);
         this.className = 'Menu';
@@ -65,4 +65,4 @@ class RealmDrinkController extends ParentRealmController {
         return this.deleteObject(this.className, id);
     }
 }
-module.exports = RealmDrinkController;
+module.exports = RealmMenuController;
