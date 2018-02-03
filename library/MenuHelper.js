@@ -125,6 +125,10 @@ class DrinkHelper extends ParentRealmController {
                     newNameChain.push(item.name);
                     checkObj(item.child, newParentObj, newIndex, newNameChain);
                 }
+                // check if default is set but there are no childrens
+                if (item.default && !item.child) {
+                    createErr(this.drinks, 'default-not-found', item.name, index);
+                }
             });
             if (!defaultFound) {
                 createErr(this.drinks, 'default-not-found', parentObj.name, index);
@@ -153,9 +157,9 @@ class DrinkHelper extends ParentRealmController {
                 drink.id = uuidv4();
                 drink.layer1 = layer1;
                 drink.created = date;
-                if (drink.child) {
+                if (drink.child && drink.child.length) {
                     drink.child = addDrinkId(drink.child, false);
-                } else if (drink.var) {
+                } else if (drink.var && drink.var.length) {
                     drink.var.forEach((drinkVar) => {
                         drinkVar.id = uuidv4();
                         drinkVar.created = date;
@@ -167,11 +171,12 @@ class DrinkHelper extends ParentRealmController {
         newMenu.drinks = addDrinkId(newMenu.drinks);
 
         // defaultParents
-        newMenu.defaultParents.map((item) => {
-            item.id = uuidv4();
-            item.created = date;
-        });
-
+        if (newMenu.defaultParents) {
+            newMenu.defaultParents.map((item) => {
+                item.id = uuidv4();
+                item.created = date;
+            });
+        }
         return newMenu;
     }
 }
