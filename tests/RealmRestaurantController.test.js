@@ -27,9 +27,9 @@ describe('RealmRestaurantController', () => {
                 controller.realm.then((realm) => {
                     let mock = require('./mockData/restaurant/createValid.json');
 
-                    mock.account = account;
                     mock.address = account.address;
-                    restaurant = controller.createRestaurant(account.id, mock);
+                    mock.accountId = account.id;
+                    restaurant = controller.createRestaurant(mock);
 
                     account = controller.formatRealmObj(account);
                     let restaurantFormatted = controller.formatRealmObj(restaurant);
@@ -38,7 +38,6 @@ describe('RealmRestaurantController', () => {
                     expect(restaurantFormatted.name).to.equal(mock.name);
                     expect(restaurantFormatted.address).to.deep.equal(mock.address);
                     expect(restaurantFormatted.drinkMenus).to.deep.equal(mock.drinkMenus);
-                    expect(restaurantFormatted.account).to.deep.equal(account);
                     expect(restaurant.created).to.be.an('date');
                     expect(restaurantFormatted.id).to.be.an('string');
                     expect(restaurantFormatted.id).not.to.be.empty;
@@ -109,8 +108,9 @@ describe('RealmRestaurantController', () => {
         it('createRestaurant', (done) => {
             const controller = new RealmRestaurantController();
             controller.realm.then((realm) => {
-                const mock = require('./mockData/restaurant/createWrong.json');
-                const emptyRestaurant = controller.createRestaurant(account.id, mock);
+                let mock = require('./mockData/restaurant/createWrong.json');
+                mock.accountId = account.id;
+                const emptyRestaurant = controller.createRestaurant(mock);
                 expect(emptyRestaurant).to.be.undefined;
                 done();
             }).catch((err) => {

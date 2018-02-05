@@ -36,14 +36,17 @@ class RealmMenuController extends ParentRealmController {
     }
     // --- Create Menu
     createMenu (newMenu) {
-        let validation = this.validateMenu(newMenu);
-        if (!validation.error) {
-            newMenu.id = uuidv4();
-            newMenu.created = new Date();
-            let preparedInsert = this.menuHelper.prepareInsert(newMenu);
-            return this.writeObject(this.className, preparedInsert, false);
-        } else {
-            return validation;
+        let restaurant = this.objectWithId('Restaurant', newMenu.restaurantId);
+        if (restaurant) {
+            let validation = this.validateMenu(newMenu);
+            if (!validation.error) {
+                newMenu.id = uuidv4();
+                newMenu.created = new Date();
+                let preparedInsert = this.menuHelper.prepareInsert(newMenu);
+                return this.writeObject(this.className, preparedInsert, false);
+            } else {
+                return validation;
+            }
         }
     }
     // --- Updating Menu

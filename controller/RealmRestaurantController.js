@@ -14,11 +14,11 @@ class RealmRestaurantController extends ParentRealmController {
         return this.objectWithId(this.className, id);
     };
     getRestaurantsByAccountId (accountId) {
-        let filterString = `account.id == '${accountId}'`;
+        let filterString = `accountId == '${accountId}'`;
         return this.objectsWithFilter(this.className, filterString);
     };
-    createRestaurant (accountId, restaurantJSON) {
-        let ownerAccount = this.objectWithId('Account', accountId);
+    createRestaurant (restaurantJSON) {
+        let ownerAccount = this.objectWithId('Account', restaurantJSON.accountId);
         if (ownerAccount) {
             restaurantJSON.id = uuidv4();
             restaurantJSON.created = new Date();

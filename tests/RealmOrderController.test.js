@@ -35,7 +35,8 @@ describe('RealmOrderController', () => {
                 restaurantController.realm.then((realm) => {
                     // create test restaurant
                     let restaurantMock = require('./mockData/restaurant/createValid');
-                    restaurant = restaurantController.createRestaurant(account.id, restaurantMock);
+                    restaurantMock.accountId = account.id;
+                    restaurant = restaurantController.createRestaurant(restaurantMock);
 
                     const voiceDeviceController = new RealmVoiceDeviceController();
                     voiceDeviceController.realm.then((realm) => {

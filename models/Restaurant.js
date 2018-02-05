@@ -4,7 +4,7 @@ const RestaurantSchema = {
     properties: {
         id: 'string',
         created: 'date',
-        account: 'Account',
+        accountId: 'string',
         name: 'string',
         address: 'Address',
         deleted: 'date?'

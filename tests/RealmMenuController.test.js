@@ -28,7 +28,8 @@ describe ('RealmMenuController', () => {
                 const restaurantController = new RealmRestaurantController();
                 restaurantController.realm.then(realm => {
                     let restaurantMock = require('./mockData/restaurant/createValid');
-                    restaurant = restaurantController.createRestaurant(account.id, restaurantMock);
+                    restaurantMock.accountId = account.id;
+                    restaurant = restaurantController.createRestaurant(restaurantMock);
 
                     const menuController = new RealmMenuController();
                     menuController.realm.then(realm => {
@@ -121,7 +122,7 @@ describe ('RealmMenuController', () => {
                 sampleMenu = controller.formatRealmObj(sampleMenu, true);
                 createdMenu = controller.formatRealmObj(createdMenu, true);
                 expect(createdMenu).is.not.deep.equal(sampleMenu);
-                expect(createdMenu).has.property('error');
+                expect(createdMenu).to.be.undefined;
                 done();
             }).catch((err)=>{
                 done(err);
