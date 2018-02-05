@@ -134,7 +134,9 @@ class DrinkHelper extends ParentRealmController {
                 createErr(this.drinks, 'default-not-found', parentObj.name, index);
             }
         };
-        checkObj(menu.drinks);
+        if (menu.drinks) {
+            checkObj(menu.drinks);
+        }
 
         // checklists
         if (defaultParentsChecklist.length) {
