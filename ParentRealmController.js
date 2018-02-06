@@ -30,6 +30,9 @@ class ParentRealmController {
             schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent, Address]
         }).then(realm => {
             that.realm = realm;
+            if (that.realmCreated) {
+                that.realmCreated();
+            }
         });
     };
 
