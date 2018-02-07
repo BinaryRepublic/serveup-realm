@@ -36,7 +36,7 @@ class ParentRealmController {
         });
     };
 
-    formatRealmObj (objectElem, emptyToUndefined = false) {
+    formatRealmObj (objectElem, emptyToUndefined = false, deleteRealmFlags = true) {
         let result = null;
         let worker = objectElem;
         if (typeof worker === 'object' && !(worker instanceof Date) && !Array.isArray(worker)) {
@@ -51,7 +51,7 @@ class ParentRealmController {
                 result = [];
                 worker = Array.from(worker);
                 for (let x = 0; x < worker.length; x++) {
-                    result[x] = this.formatRealmObj(worker[x], emptyToUndefined);
+                    result[x] = this.formatRealmObj(worker[x], emptyToUndefined, deleteRealmFlags);
                 }
             } else if (JSON.stringify(worker) === JSON.stringify({})) {
                 if (!emptyToUndefined) {
@@ -60,13 +60,15 @@ class ParentRealmController {
                     result = undefined;
                 }
             } else if (worker === null) {
-                result = undefined;
+                if (emptyToUndefined) {
+                    result = undefined;
+                }
             } else {
                 result = {};
                 for (let key in worker) {
                     // remove realm flags
-                    if (key !== 'deleted' && key !== 'created') {
-                        let newObj = this.formatRealmObj(worker[key], emptyToUndefined);
+                    if ((key !== 'deleted' && key !== 'created') || !deleteRealmFlags) {
+                        let newObj = this.formatRealmObj(worker[key], emptyToUndefined, deleteRealmFlags);
                         if (newObj !== undefined) {
                             result[key] = newObj;
                         } else {
@@ -81,7 +83,7 @@ class ParentRealmController {
             } else if (Array.isArray(worker)) {
                 result = [];
                 worker.forEach((workerItem, x) => {
-                    result[x] = this.formatRealmObj(workerItem, emptyToUndefined);
+                    result[x] = this.formatRealmObj(workerItem, emptyToUndefined, deleteRealmFlags);
                 });
             } else {
                 result = objectElem;
@@ -109,7 +111,7 @@ class ParentRealmController {
     };
     updateObject (className, objectId, objData, legalAttributes) {
         for (var property in objData) {
-            if (objData.hasOwnProperty(property)) {
+            if (objData.hasOwnProperty(property) && legalAttributes !== true) {
                 if (!legalAttributes.includes(property)) {
                     delete objData.property;
                 }
@@ -122,7 +124,25 @@ class ParentRealmController {
         }
     };
     deleteObject (className, objectId) {
-        return this.updateObject(className, objectId, {deleted: new Date()}, ['deleted']);
+        let deletedObj = this.objectWithId(className, objectId);
+        deletedObj = this.formatRealmObj(deletedObj, false, false);
+        let deleteRecursive = (deletedObj) => {
+            if (Array.isArray(deletedObj)) {
+                deletedObj.forEach((item, x) => {
+                    deleteRecursive(deletedObj[x]);
+                });
+            } else if (typeof deletedObj === 'object' && !(deletedObj instanceof Date)) {
+                for (let key in deletedObj) {
+                    if (key === 'deleted') {
+                        deletedObj[key] = new Date();
+                    } else {
+                        deleteRecursive(deletedObj[key]);
+                    }
+                }
+            }
+        };
+        deleteRecursive(deletedObj);
+        return this.updateObject(className, objectId, deletedObj, true);
     };
 
     // Realm methods
