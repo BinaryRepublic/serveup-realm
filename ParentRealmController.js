@@ -24,15 +24,12 @@ class ParentRealmController {
         this.MenuDefaultParent = MenuDefaultParent;
         this.Address = Address;
 
-        var that = this;
+        let that = this;
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
             schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent, Address]
         }).then(realm => {
             that.realm = realm;
-            if (that.realmCreated) {
-                that.realmCreated();
-            }
         });
     };
 
