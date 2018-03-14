@@ -25,7 +25,33 @@ class ParentRealmController {
         let that = this;
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
-            schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent]
+            schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent],
+            schemaVersion: 2,
+            migration: (oldRealm, newRealm) => {
+                if (oldRealm.schemaVersion < 2 || oldRealm.schemaVersion == undefined) {
+                    let oldAccounts = oldRealm.objects('Account');
+                    let oldRestaurants = oldRealm.objects('Restaurant');
+            
+                    for (let i = 0; i < oldAccounts.length; i++) 
+                    {
+                        let oldAccount = oldAccounts[i];
+                        let newAccount = newRealm.objects('Account').filtered('id = $0', oldAccount.id);
+                        newAccount.street = oldAccount.address.street;
+                        newAccount.postCode = oldAccount.address.postCode;
+                        newAccount.city = oldAccount.address.city;
+                        newAccount.country = oldAccount.address.country;
+                    }
+                    for (let i = 0; i < oldRestaurants.length; i++) 
+                    {
+                        let oldRestaurant = oldRestaurants[i];
+                        let newRestaurant = newRealm.objects('Restaurant').filtered('id = $0', oldRestaurant.id);
+                        newRestaurant.street = oldRestaurant.address.street;
+                        newRestaurant.postCode = oldRestaurant.address.postCode;
+                        newRestaurant.city = oldRestaurant.address.city;
+                        newRestaurant.country = oldRestaurant.address.country;
+                    }
+                }
+            }
         }).then(realm => {
             that.realm = realm;
         });
