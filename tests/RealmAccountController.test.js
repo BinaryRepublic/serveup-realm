@@ -2,10 +2,8 @@
 
 const RealmAccountController = require('../controller/RealmAccountController');
 const expect = require('chai').expect;
-const RealmAddressController = require('../controller/RealmAddressController');
 
 var account;
-var address;
 
 describe('RealmAccountController', () => {
     it('Create object and check methods', (done) => {
@@ -31,11 +29,10 @@ describe('RealmAccountController', () => {
                 expect(account.surname).to.equal(accountMock.surname);
                 expect(account.phone).to.equal(accountMock.phone);
 
-                expect(account.address).not.to.be.undefined;
-                expect(account.address.street).to.equal(accountMock.street);
-                expect(account.address.postCode).to.equal(accountMock.postCode);
-                expect(account.address.city).to.equal(accountMock.city);
-                expect(account.address.country).to.equal(accountMock.country);
+                expect(account.street).to.equal(accountMock.street);
+                expect(account.postCode).to.equal(accountMock.postCode);
+                expect(account.city).to.equal(accountMock.city);
+                expect(account.country).to.equal(accountMock.country);
 
                 expect(account.created).to.be.an('date');
                 expect(account.id).to.be.an('string');

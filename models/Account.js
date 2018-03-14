@@ -8,7 +8,10 @@ const AccountSchema = {
         password: 'string',
         firstName: 'string',
         surName: 'string',
-        address: 'Address',
+        street: 'string',
+        postCode: 'string',
+        city: 'string',
+        country: 'string',
         phone: 'string',
         deleted: 'date?'
     }

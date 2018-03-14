@@ -9,7 +9,6 @@ const Menu = require('./models/Menu.js');
 const MenuDrinks = require('./models/MenuDrinks.js');
 const MenuDrinksVar = require('./models/MenuDrinksVar.js');
 const MenuDefaultParent = require('./models/MenuDefaultParent.js');
-const Address = require('./models/Address.js');
 
 class ParentRealmController {
     constructor () {
@@ -22,12 +21,11 @@ class ParentRealmController {
         this.MenuDrinks = MenuDrinks;
         this.MenuDrinksVar = MenuDrinksVar;
         this.MenuDefaultParent = MenuDefaultParent;
-        this.Address = Address;
 
         let that = this;
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
-            schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent, Address]
+            schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent]
         }).then(realm => {
             that.realm = realm;
         });

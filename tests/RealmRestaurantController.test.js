@@ -27,7 +27,6 @@ describe('RealmRestaurantController', () => {
                 controller.realm.then((realm) => {
                     let mock = require('./mockData/restaurant/createValid.json');
 
-                    mock.address = account.address;
                     mock.accountId = account.id;
                     restaurant = controller.createRestaurant(mock);
 
@@ -35,8 +34,12 @@ describe('RealmRestaurantController', () => {
                     let restaurantFormatted = controller.formatRealmObj(restaurant);
                     mock = controller.formatRealmObj(mock);
 
+                    expect(restaurantFormatted.street).to.equal(mock.street);
+                    expect(restaurantFormatted.postCode).to.equal(mock.postCode);
+                    expect(restaurantFormatted.city).to.equal(mock.city);
+                    expect(restaurantFormatted.country).to.equal(mock.country);
+
                     expect(restaurantFormatted.name).to.equal(mock.name);
-                    expect(restaurantFormatted.address).to.deep.equal(mock.address);
                     expect(restaurantFormatted.drinkMenus).to.deep.equal(mock.drinkMenus);
                     expect(restaurant.created).to.be.an('date');
                     expect(restaurantFormatted.id).to.be.an('string');

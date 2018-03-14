@@ -6,7 +6,10 @@ const RestaurantSchema = {
         created: 'date',
         accountId: 'string',
         name: 'string',
-        address: 'Address',
+        street: 'string',
+        postCode: 'string',
+        city: 'string',
+        country: 'string',
         deleted: 'date?'
     }
 };

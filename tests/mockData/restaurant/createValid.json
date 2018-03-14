@@ -1,3 +1,7 @@
 {
-	"name":"Factory Kitchen"
+    "name":"Factory Kitchen",
+    "street": "Storkower Straße 205a",
+    "postCode": "10369",
+    "city": "Berlin",
+    "country": "Germany"
 }
