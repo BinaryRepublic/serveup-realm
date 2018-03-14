@@ -29,6 +29,9 @@ class ParentRealmController {
             schemaVersion: 2,
             migration: (oldRealm, newRealm) => {
                 if (oldRealm.schemaVersion < 2 || oldRealm.schemaVersion == undefined) {
+                    console.log('##############################################################');
+                    console.log('REALM Migration to Version 2');
+                    console.log('##############################################################');
                     let oldAccounts = oldRealm.objects('Account');
                     let oldRestaurants = oldRealm.objects('Restaurant');
             
