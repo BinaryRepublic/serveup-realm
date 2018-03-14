@@ -26,17 +26,16 @@ class ParentRealmController {
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
             schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent],
-            schemaVersion: 2,
+            schemaVersion: 3,
             migration: (oldRealm, newRealm) => {
-                if (oldRealm.schemaVersion < 2 || oldRealm.schemaVersion == undefined) {
+                if (oldRealm.schemaVersion === undefined || oldRealm.schemaVersion === 1) {
                     console.log('##############################################################');
                     console.log('REALM Migration to Version 2');
                     console.log('##############################################################');
                     let oldAccounts = oldRealm.objects('Account');
                     let oldRestaurants = oldRealm.objects('Restaurant');
             
-                    for (let i = 0; i < oldAccounts.length; i++) 
-                    {
+                    for (let i = 0; i < oldAccounts.length; i++) {
                         let oldAccount = oldAccounts[i];
                         let newAccount = newRealm.objects('Account').filtered('id = $0', oldAccount.id);
                         newAccount.street = oldAccount.address.street;
@@ -44,14 +43,24 @@ class ParentRealmController {
                         newAccount.city = oldAccount.address.city;
                         newAccount.country = oldAccount.address.country;
                     }
-                    for (let i = 0; i < oldRestaurants.length; i++) 
-                    {
+                    for (let i = 0; i < oldRestaurants.length; i++) {
                         let oldRestaurant = oldRestaurants[i];
                         let newRestaurant = newRealm.objects('Restaurant').filtered('id = $0', oldRestaurant.id);
                         newRestaurant.street = oldRestaurant.address.street;
                         newRestaurant.postCode = oldRestaurant.address.postCode;
                         newRestaurant.city = oldRestaurant.address.city;
                         newRestaurant.country = oldRestaurant.address.country;
+                    }
+                }
+                if (oldRealm.schemaVersion === 2) {
+                    console.log('##############################################################');
+                    console.log('REALM Migration to Version 3');
+                    console.log('##############################################################');
+                    let oldDrinks = oldRealm.objects('MenuDrinks');
+
+                    for (let i = 0; i < oldDrinks.length; i++) {
+                        let newDrink = newRealm.objects('MenuDrinks').filtered('id = $0', oldDrinks.id);
+                        newDrink.category = '';
                     }
                 }
             }

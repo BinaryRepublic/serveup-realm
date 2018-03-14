@@ -10,6 +10,7 @@ const MenuDrinksSchema = {
         default: 'string?',
         child: 'MenuDrinks[]',
         productName: 'string?',
+        category: 'string',
         var: 'MenuDrinksVar[]',
         alone: 'bool?',
         deleted: 'date?'
