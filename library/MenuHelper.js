@@ -39,7 +39,7 @@ class DrinkHelper extends ParentRealmController {
                     errorStr += 'not allowed to set childAttr (parentName, var) if child is set at name "' + name + '"';
                     break;
                 case 'child-required':
-                    errorStr += 'lowest child requires childAttr (parentName, var) at name "' + name + '"';
+                    errorStr += 'lowest child requires childAttr (parentName, var, category) at name "' + name + '"';
                     break;
                 case 'var-attr-missing':
                     errorStr += 'DrinkVar params missing (price, size) params at name "' + name + '"';
@@ -108,7 +108,7 @@ class DrinkHelper extends ParentRealmController {
                 // check child / productName / var combinations
                 if (item.child && (item.productName || item.var)) {
                     createErr(this.drinks, 'parent-required', item.name, newIndex);
-                } else if (!item.child && (!item.productName || !item.var)) {
+                } else if (!item.child && (!item.productName || !item.var || !item.category)) {
                     createErr(this.drinks, 'child-required', item.name, newIndex);
                 }
                 // check if drinkVar is set correctly
