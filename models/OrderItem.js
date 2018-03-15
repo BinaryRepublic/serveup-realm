@@ -7,7 +7,7 @@ const OrderItemSchema = {
         name: 'string',
         size: 'int',
         nb: 'int',
-        category: 'string?',
+        category: 'string',
         deleted: 'date?'
     }
 };

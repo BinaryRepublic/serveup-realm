@@ -63,6 +63,17 @@ class ParentRealmController {
                         newDrink.category = '';
                     }
                 }
+                if (oldRealm.schemaVersion === 3) {
+                    console.log('##############################################################');
+                    console.log('REALM Migration to Version 4');
+                    console.log('##############################################################');
+                    let oldOrderItems = oldRealm.objects('OrderItem');
+
+                    for (let i = 0; i < oldOrderItems.length; i++) {
+                        let newDrink = newRealm.objects('OrderItem').filtered('id = $0', oldOrderItems.id);
+                        newDrink.category = '';
+                    }
+                }
             }
         }).then(realm => {
             that.realm = realm;
