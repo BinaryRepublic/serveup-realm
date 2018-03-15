@@ -49,10 +49,16 @@ describe('RealmOrderController', () => {
                             let orderMock = require('./mockData/order/createValid');
                             order = orderController.createOrder(voiceDevice.id, orderMock.items);
                             order = orderController.formatRealmObj(order);
-                            expect(order).has.property('timestamp');
-                            expect(order).has.property('voiceDeviceId');
-                            expect(order).has.property('restaurantId');
-                            expect(order).has.property('items');
+                            expect(order.timestamp).to.be.a('date');
+                            expect(order.voiceDeviceId).to.be.a('string');
+                            expect(order.restaurantId).to.be.a('string');
+
+                            expect(order.items).to.be.a('array');
+                            let orderItem = order.items[0];
+                            expect(orderItem.size).to.be.a('number');
+                            expect(orderItem.nb).to.be.a('number');
+                            expect(orderItem.category).to.be.a('string');
+
                             done();
                         }).catch((err) => {
                             done(err);

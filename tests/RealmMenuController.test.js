@@ -56,10 +56,11 @@ describe ('RealmMenuController', () => {
                 let result = controller.getMenuById(menu.id);
                 result = controller.formatRealmObj(result);
                 expect(result).to.be.an('Object');
-                expect(result).to.have.property('drinks');
-                expect(result).to.have.property('defaultParents');
+                expect(result.drinks).to.be.a('array');
+                expect(result.defaultParents).to.be.a('array');
+
                 expect(result.drinks).to.be.an('Array');
-                expect(result.drinks[0]).to.have.property('name');
+                expect(result.drinks[0].name).to.be.a('string');
                 done();
             }).catch((err) => {
                 done(err);

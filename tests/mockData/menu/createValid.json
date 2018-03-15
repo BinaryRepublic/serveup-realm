@@ -15,6 +15,7 @@
           "synonym": [
             "börse"
           ],
+          "category": "bier",
           "var": [
             {
               "size": 300,
@@ -37,6 +38,7 @@
             {
               "name": "pilsener",
               "productName": "Jever Pilsener",
+              "category": "bier",
               "var": [
                 {
                   "size": 300,
@@ -61,6 +63,7 @@
                 {
                   "name": "pilsener",
                   "productName": "Paulaner Premium Pils",
+                  "category": "bier",
                   "var": [
                     {
                       "size": 300,
@@ -84,6 +87,7 @@
                 {
                   "name": "weizen",
                   "productName": "Paulaner Kristallweizen",
+                  "category": "bier",
                   "var": [
                     {
                       "size": 500,
@@ -102,6 +106,7 @@
             {
               "name": "pschorr",
               "productName": "Hacker-Pschorr",
+              "category": "bier",
               "var": [
                 {
                   "size": 300,
@@ -122,6 +127,7 @@
               "name": "alt",
               "productName": "Diebels Alt",
               "alone": false,
+              "category": "bier",
               "var": [
                 {
                   "size": 300,
@@ -138,6 +144,7 @@
         {
           "name": "zwickl",
           "productName": "Zwick'l",
+          "category": "bier",
           "var": [
             {
               "size": 300,
@@ -158,6 +165,7 @@
                 {
                   "name": "pils",
                   "productName": "Potsdamer Rex Pils",
+                  "category": "bier",
                   "var": [
                     {
                       "size": 300,
@@ -180,6 +188,7 @@
             {
               "name": "sion",
               "productName": "Sion Kölsch",
+              "category": "bier",
               "var": [
                 {
                   "size": 300,
@@ -190,6 +199,7 @@
             {
               "name": "meter",
               "productName": "1 Meter Kölsch",
+              "category": "bier",
               "var": [
                 {
                   "size": 3300,
@@ -205,6 +215,7 @@
             {
               "name": "fassbrause",
               "productName": "Gespritztes mit Fassbrause",
+              "category": "bier",
               "var": [
                 {
                   "size": 300,
@@ -224,6 +235,7 @@
             {
               "name": "beer",
               "productName": "Corona Beer",
+              "category": "bier",
               "var": [
                 {
                   "size": 330,
@@ -242,6 +254,7 @@
                 {
                   "name": "rot",
                   "productName": "Berliner Weisse Rot",
+                  "category": "bier",
                   "var": [
                     {
                       "size": 330,
@@ -252,6 +265,7 @@
                 {
                   "name": "grün",
                   "productName": "Berliner Weisse Grün",
+                  "category": "bier",
                   "var": [
                     {
                       "size": 330,

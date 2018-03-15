@@ -13,6 +13,7 @@
             {
               "name": "chardonnay",
               "productName": "Chardonnay",
+              "category": "test",
               "var": [
                 {
                   "size": 200,
@@ -35,7 +36,8 @@
                   "name": "grün",
                   "productName": "Grüner Veltiner",
                   "alone": false,
-                  "var": [
+                  "category": "test",
+              "var": [
                     {
                       "size": 200,
                       "price": 4.3
@@ -63,7 +65,8 @@
                 {
                   "name": "blau",
                   "productName": "Blauer Zweigelt",
-                  "var": [
+                  "category": "test",
+              "var": [
                     {
                       "size": 200,
                       "price": 4.7
@@ -93,6 +96,7 @@
             {
               "name": "frizzante",
               "productName": "Prosecco Frizzante",
+              "category": "test",
               "var": [
                 {
                   "size": 100,
@@ -117,6 +121,7 @@
             {
               "name": "gall",
               "productName": "De St. Gall",
+              "category": "test",
               "var": [
                 {
                   "size": 750,
@@ -138,6 +143,7 @@
             {
               "name": "geist",
               "productName": "Waldhimbeergeist",
+              "category": "test",
               "var": [
                 {
                   "size": 20,
@@ -150,7 +156,8 @@
         {
           "name": "marillenbrand",
           "productName": "Marillenbrand",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 20,
               "price": 4.8
@@ -160,7 +167,8 @@
         {
           "name": "holzfass",
           "productName": "Obstbrand aus dem Holzfass",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 20,
               "price": 4.8
@@ -176,7 +184,8 @@
                 {
                   "name": "ludwig",
                   "productName": "König Ludwig Bierbrand",
-                  "var": [
+                  "category": "test",
+              "var": [
                     {
                       "size": 20,
                       "price": 3.8
@@ -195,7 +204,8 @@
         {
           "name": "nordhäuser",
           "productName": "Nordhäuser Korn",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 20,
               "price": 2.8
@@ -210,7 +220,8 @@
         {
           "name": "aquavit",
           "productName": "Malteser Aquavit",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 20,
               "price": 2.8
@@ -225,7 +236,8 @@
         {
           "name": "moskovskaya",
           "productName": "Wodka Moskovskaya",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 20,
               "price": 2.8
@@ -249,7 +261,8 @@
                   "synonym": ["rot"],
                   "productName": "Johnnie Walker - Red Label",
                   "alone": false,
-                  "var": [
+                  "category": "test",
+              "var": [
                     {
                       "size": 40,
                       "price": 6.5
@@ -261,7 +274,8 @@
                   "synonym": ["schwarz"],
                   "productName": "Johnnie Walker - Black Label",
                   "alone": false,
-                  "var": [
+                  "category": "test",
+              "var": [
                     {
                       "size": 40,
                       "price": 6.5
@@ -289,7 +303,8 @@
                     {
                       "name": "jerez",
                       "productName": "Gran Duque D Alba Brandy de Jerez",
-                      "var": [
+                      "category": "test",
+              "var": [
                         {
                           "size": 20,
                           "price": 3.8
@@ -311,7 +326,8 @@
         {
           "name": "kutscher",
           "productName": "Kutscher Kümmel",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 20,
               "price": 2.9
@@ -321,7 +337,8 @@
         {
           "name": "dautes",
           "productName": "Dautes Kümmel - ohne Zucker",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 20,
               "price": 2.9
@@ -342,7 +359,8 @@
                 {
                   "name": "cola",
                   "productName": "Jack Daniels - Cola",
-                  "var": [
+                  "category": "test",
+              "var": [
                     {
                       "size": 40,
                       "price": 7.9
@@ -359,6 +377,7 @@
             {
               "name": "batida",
               "productName": "Batida Kirsch",
+              "category": "test",
               "var": [
                 {
                   "size": 40,
@@ -374,6 +393,7 @@
             {
               "name": "milch",
               "productName": "Likör 43 mit Milch",
+              "category": "test",
               "var": [
                 {
                   "size": 40,
@@ -392,7 +412,8 @@
                 {
                   "name": "comfort",
                   "productName": "Southern Comfort - Ginger Ale",
-                  "var": [
+                  "category": "test",
+              "var": [
                     {
                       "size": 40,
                       "price": 7.9
@@ -412,7 +433,8 @@
         {
           "name": "tafel",
           "productName": "Tafelwasser",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 200,
               "price": 1.9
@@ -429,6 +451,7 @@
             {
               "name": "medium",
               "productName": "Vöslauer 'prickelnd'",
+              "category": "test",
               "var": [
                 {
                   "size": 250,
@@ -444,6 +467,7 @@
             {
               "name": "still",
               "productName": "Vöslauer 'ohne'",
+              "category": "test",
               "var": [
                 {
                   "size": 250,
@@ -466,7 +490,8 @@
           "name": "orange",
           "synonym": ["orangensaft", "o saft"],
           "productName": "Orangensaft",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 200,
               "price": 2.9
@@ -481,7 +506,8 @@
           "name": "apfel",
           "synonym": ["apfelsaft"],
           "productName": "Apfelsaft",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 200,
               "price": 2.9
@@ -496,7 +522,8 @@
           "name": "kirsch",
           "synonym": ["kirschsaft"],
           "productName": "Kirschsaft",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 200,
               "price": 2.9
@@ -516,7 +543,8 @@
         {
           "name": "creme",
           "productName": "Kaffee Creme",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 200,
               "price": 2.5
@@ -526,7 +554,8 @@
         {
           "name": "milchkaffee",
           "productName": "Milchkaffee",
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 200,
               "price": 3.5
@@ -542,7 +571,8 @@
           "name": "heiß",
           "productName": "Heiße Schokolade",
           "alone": false,
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 200,
               "price": 3.9
@@ -558,7 +588,8 @@
           "productName": "Einfacher Espresso",
           "name": "normal",
           "alone": false,
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 100,
               "price": 1.9
@@ -569,7 +600,8 @@
           "name": "doppelt",
           "productName": "Doppelter Espresso",
           "alone": false,
-          "var": [
+          "category": "test",
+              "var": [
             {
               "size": 200,
               "price": 3.3
