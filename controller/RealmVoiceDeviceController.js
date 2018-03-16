@@ -12,8 +12,9 @@ class RealmVoiceDeviceController extends ParentRealmController {
         return this.objectWithId(this.className, id);
     };
     getVoiceDevicesByRestaurantId (restaurantId) {
-        let filterString = `restaurantId == '${restaurantId}'`;
-        return this.objectsWithFilter(this.className, filterString);
+        if (this.restaurantController.getRestaurantById(restaurantId)) {
+            return this.objectsWithFilter(this.className, 'restaurantId == "' + restaurantId + '"');
+        }
     };
     createVoiceDevice (restaurantId, voiceDeviceJSON) {
         voiceDeviceJSON.id = uuidv4();
