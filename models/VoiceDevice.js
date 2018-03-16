@@ -4,7 +4,7 @@ const VoiceDeviceSchema = {
     properties: {
         id: 'string',
         created: 'date',
-        number: 'int',
+        number: 'string',
         restaurantId: 'string',
         deleted: 'date?'
     }
