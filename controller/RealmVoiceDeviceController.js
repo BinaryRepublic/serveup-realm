@@ -2,11 +2,13 @@
 
 const uuidv4 = require('uuid/v4');
 const ParentRealmController = require('../ParentRealmController');
+const RealmRestaurantController = require('./RealmRestaurantController');
 
 class RealmVoiceDeviceController extends ParentRealmController {
     constructor (callback) {
         super(callback);
         this.className = 'VoiceDevice';
+        this.restaurantController = new RealmRestaurantController();
     }
     getVoiceDeviceById (id) {
         return this.objectWithId(this.className, id);
