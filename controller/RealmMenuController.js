@@ -56,13 +56,17 @@ class RealmMenuController extends ParentRealmController {
         if (!validation.error) {
             // prepare drinks (insert id's etc)
             let currentMenu = this.getMenuById(menuId);
-            newMenuObj.id = currentMenu.id;
-            newMenuObj.created = new Date();
-            let updateObj = newMenuObj;
-            if (updateObj.drinks) {
-                updateObj = this.menuHelper.prepareInsert(newMenuObj);
+            if (currentMenu) {
+                newMenuObj.id = currentMenu.id;
+                newMenuObj.created = new Date();
+                let updateObj = newMenuObj;
+                if (updateObj.drinks) {
+                    updateObj = this.menuHelper.prepareInsert(newMenuObj);
+                }
+                return this.writeObject(this.className, updateObj, true);
+            } else {
+                return undefined;
             }
-            return this.writeObject(this.className, updateObj, true);
         } else {
             return validation;
         }
