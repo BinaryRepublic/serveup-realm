@@ -1,5 +1,5 @@
 {
-  "items": [
+  "drinks": [
     {
       "name": "Bier",
       "size": 500,
@@ -11,6 +11,14 @@
       "size": 300,
       "nb": 1,
       "category": "bier"
+    }
+  ],
+  "services": [
+    {
+      "name": "rechnung"
+    },
+    {
+      "name": "kellner"
     }
   ]
 }

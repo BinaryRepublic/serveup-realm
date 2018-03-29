@@ -1,5 +1,5 @@
-const OrderItemSchema = {
-    name: 'OrderItem',
+const OrderDrinkSchema = {
+    name: 'OrderDrink',
     primaryKey: 'id',
     properties: {
         id: 'string',
@@ -11,4 +11,4 @@ const OrderItemSchema = {
         deleted: 'date?'
     }
 };
-module.exports = OrderItemSchema;
+module.exports = OrderDrinkSchema;

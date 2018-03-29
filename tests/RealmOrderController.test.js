@@ -47,17 +47,21 @@ describe('RealmOrderController', () => {
                         const orderController = new RealmOrderController();
                         orderController.realm.then((realm) => {
                             let orderMock = require('./mockData/order/createValid');
-                            order = orderController.createOrder(voiceDevice.id, orderMock.items);
+                            order = orderController.createOrder(voiceDevice.id, orderMock.drinks, orderMock.services);
                             order = orderController.formatRealmObj(order);
                             expect(order.timestamp).to.be.a('date');
                             expect(order.voiceDeviceId).to.be.a('string');
                             expect(order.restaurantId).to.be.a('string');
 
-                            expect(order.items).to.be.a('array');
-                            let orderItem = order.items[0];
-                            expect(orderItem.size).to.be.a('number');
-                            expect(orderItem.nb).to.be.a('number');
-                            expect(orderItem.category).to.be.a('string');
+                            expect(order.drinks).to.be.a('array');
+                            let orderDrinks = order.drinks[0];
+                            expect(orderDrinks.size).to.be.a('number');
+                            expect(orderDrinks.nb).to.be.a('number');
+                            expect(orderDrinks.category).to.be.a('string');
+
+                            expect(order.services).to.be.a('array');
+                            let orderServices = order.services[0];
+                            expect(orderServices.name).to.be.a('string');
 
                             done();
                         }).catch((err) => {
@@ -132,10 +136,10 @@ describe('RealmOrderController', () => {
                 let validOrder = require('./mockData/order/createValid');
                 let wrongOrder = require('./mockData/order/createWrong');
                 // wrong voiceDeviceId
-                let result = controller.createOrder('invalid-voice-id', validOrder.items);
+                let result = controller.createOrder('invalid-voice-id', validOrder.drinks, validOrder.services);
                 expect(result).to.be.undefined;
                 // wrong orderItems
-                result = controller.createOrder(voiceDevice.id, wrongOrder.items);
+                result = controller.createOrder(voiceDevice.id, wrongOrder.drinks, wrongOrder.services);
                 expect(result).to.be.undefined;
                 done();
             }).catch((err) => {

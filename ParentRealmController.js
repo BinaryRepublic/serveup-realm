@@ -1,9 +1,8 @@
 'use strict';
 const Realm = require('realm');
 const Order = require('./models/Order.js');
-const OrderItem = require('./models/OrderItem.js');
-const Service = require('./models/Service.js');
-const ServiceItem = require('./models/ServiceItem.js');
+const OrderDrink = require('./models/OrderDrink.js');
+const OrderService = require('./models/OrderService.js');
 const Account = require('./models/Account');
 const Restaurant = require('./models/Restaurant.js');
 const VoiceDevice = require('./models/VoiceDevice.js');
@@ -15,9 +14,8 @@ const MenuDefaultParent = require('./models/MenuDefaultParent.js');
 class ParentRealmController {
     constructor () {
         this.Order = Order;
-        this.OrderItem = OrderItem;
-        this.Service = Service;
-        this.ServiceItem = ServiceItem;
+        this.OrderDrink = OrderDrink;
+        this.OrderService = OrderService;
         this.Account = Account;
         this.Restaurant = Restaurant;
         this.VoiceDevice = VoiceDevice;
@@ -29,7 +27,7 @@ class ParentRealmController {
         let that = this;
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
-            schema: [Order, OrderItem, Service, ServiceItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent],
+            schema: [Order, OrderDrink, OrderService, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent],
             schemaVersion: 6,
             migration: (oldRealm, newRealm) => {
                 if (oldRealm.schemaVersion === undefined || oldRealm.schemaVersion === 1) {
@@ -89,6 +87,19 @@ class ParentRealmController {
                     console.log('REALM Migration to Version 6');
                     console.log('##############################################################');
                     newRealm = oldRealm;
+                }
+                if (oldRealm.schemaVersion === 6) {
+                    console.log('##############################################################');
+                    console.log('REALM Migration to Version 7');
+                    console.log('##############################################################');
+
+                    let oldOrderItems = oldRealm.objects('OrderItem');
+
+                    newRealm.write(() => {
+                        for (let i = 0; i < oldOrderItems.length; i++) {
+                            newRealm.create('OrderDrink', oldOrderItems);
+                        }
+                    });
                 }
             }
         }).then(realm => {
