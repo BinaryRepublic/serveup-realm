@@ -28,7 +28,7 @@ class ParentRealmController {
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
             schema: [Order, OrderDrink, OrderService, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent],
-            schemaVersion: 6,
+            schemaVersion: 7,
             migration: (oldRealm, newRealm) => {
                 if (oldRealm.schemaVersion === undefined || oldRealm.schemaVersion === 1) {
                     console.log('##############################################################');
