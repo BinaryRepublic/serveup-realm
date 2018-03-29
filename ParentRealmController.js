@@ -2,6 +2,8 @@
 const Realm = require('realm');
 const Order = require('./models/Order.js');
 const OrderItem = require('./models/OrderItem.js');
+const Service = require('./models/Service.js');
+const ServiceItem = require('./models/ServiceItem.js');
 const Account = require('./models/Account');
 const Restaurant = require('./models/Restaurant.js');
 const VoiceDevice = require('./models/VoiceDevice.js');
@@ -14,6 +16,8 @@ class ParentRealmController {
     constructor () {
         this.Order = Order;
         this.OrderItem = OrderItem;
+        this.Service = Service;
+        this.ServiceItem = ServiceItem;
         this.Account = Account;
         this.Restaurant = Restaurant;
         this.VoiceDevice = VoiceDevice;
@@ -25,7 +29,7 @@ class ParentRealmController {
         let that = this;
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
-            schema: [Order, OrderItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent],
+            schema: [Order, OrderItem, Service, ServiceItem, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent],
             schemaVersion: 6,
             migration: (oldRealm, newRealm) => {
                 if (oldRealm.schemaVersion === undefined || oldRealm.schemaVersion === 1) {
@@ -34,7 +38,7 @@ class ParentRealmController {
                     console.log('##############################################################');
                     let oldAccounts = oldRealm.objects('Account');
                     let oldRestaurants = oldRealm.objects('Restaurant');
-            
+
                     for (let i = 0; i < oldAccounts.length; i++) {
                         let oldAccount = oldAccounts[i];
                         let newAccount = newRealm.objects('Account').filtered('id = $0', oldAccount.id);
