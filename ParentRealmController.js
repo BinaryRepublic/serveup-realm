@@ -95,11 +95,16 @@ class ParentRealmController {
 
                     let oldOrderItems = oldRealm.objects('OrderItem');
 
-                    newRealm.write(() => {
-                        for (let i = 0; i < oldOrderItems.length; i++) {
+                    // newRealm.write(() => {
+                    //     for (let i = 0; i < oldOrderItems.length; i++) {
+                    //         newRealm.create('OrderDrink', oldOrderItems);
+                    //     }
+                    // });
+                    for (let i = 0; i < oldOrderItems.length; i++) {
+                        newRealm.write(() => {
                             newRealm.create('OrderDrink', oldOrderItems);
-                        }
-                    });
+                        });
+                    }
                 }
             }
         }).then(realm => {
