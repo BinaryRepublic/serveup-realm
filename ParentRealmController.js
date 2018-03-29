@@ -93,17 +93,25 @@ class ParentRealmController {
                     console.log('REALM Migration to Version 7');
                     console.log('##############################################################');
 
-                    let oldOrderItems = oldRealm.objects('OrderItem');
+                    let oldOrder = oldRealm.objects('Order');
 
-                    // newRealm.write(() => {
-                    //     for (let i = 0; i < oldOrderItems.length; i++) {
-                    //         newRealm.create('OrderDrink', oldOrderItems);
-                    //     }
-                    // });
-                    for (let i = 0; i < oldOrderItems.length; i++) {
-                        newRealm.write(() => {
-                            newRealm.create('OrderDrink', oldOrderItems);
-                        });
+                    for (let x = 0; x < oldOrder.length; x++) {
+                        let newOrder = newRealm.objects('Order').filtered('id = $0', oldOrder[x].id);
+                        let newDrinks = [];
+                        for (let y = 0; y < oldOrder[x].items.length; y++) {
+                            let oldOrderItem = oldOrder[x].items[y];
+                            newDrinks.push(newRealm.create('OrderDrink', {
+                                id: oldOrderItem.id,
+                                created: oldOrderItem.created,
+                                name: oldOrderItem.name,
+                                size: oldOrderItem.size,
+                                nb: oldOrderItem.nb,
+                                category: (oldOrderItem.category) ? oldOrderItem.category : '',
+                                deleted: oldOrderItem.deleted
+                            }));
+                        }
+                        newOrder[0].drinks = newDrinks;
+                        newOrder[0].services = [];
                     }
                 }
             }
