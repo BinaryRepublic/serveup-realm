@@ -36,7 +36,7 @@ describe('RealmVoiceDeviceController', () => {
                         expect(voiceDevice.restaurantId).to.deep.equal(restaurant.id);
                         expect(voiceDevice.created).to.be.an('date');
                         expect(voiceDevice.id).to.be.an('string');
-                        expect(voiceDevice.number).to.be.an('number');
+                        expect(voiceDevice.number).to.be.an('string');
                         expect(voiceDevice.id).not.to.be.empty;
                         done();
                     }).catch(err => {
@@ -52,7 +52,7 @@ describe('RealmVoiceDeviceController', () => {
         it('updateVoiceDevice', (done) => {
             const controller = new RealmVoiceDeviceController();
             controller.realm.then(realm => {
-                let updated = controller.updateVoiceDevice(voiceDevice.id, {number: 199});
+                let updated = controller.updateVoiceDevice(voiceDevice.id, {number: "199"});
                 expect(updated.number).to.equal(voiceDevice.number);
                 expect(updated).to.deep.equal(voiceDevice);
                 done();
@@ -135,9 +135,7 @@ describe('RealmVoiceDeviceController', () => {
             controller.realm.then(realm => {
                 let id = 'rpiefBrxxYQn9HUzYUiKXqKwi0IsGR';
                 let getVoiceDevices = controller.getVoiceDevicesByRestaurantId(id);
-                expect(getVoiceDevices).to.have.lengthOf(0);
-                let first = getVoiceDevices[0];
-                expect(first).to.be.undefined;
+                expect(getVoiceDevices).to.be.undefined;
                 done();
             }).catch(err => {
                 done(err);
