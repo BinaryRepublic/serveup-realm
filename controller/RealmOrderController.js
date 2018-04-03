@@ -47,6 +47,7 @@ class RealmOrderController extends ParentRealmController {
                 created: date,
                 timestamp: date,
                 voiceDeviceId: voiceDevice.id,
+                tableNb: voiceDevice.number,
                 restaurantId: voiceDevice.restaurantId,
                 drinks: drinks,
                 services: services

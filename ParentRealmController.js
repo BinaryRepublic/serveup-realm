@@ -28,7 +28,7 @@ class ParentRealmController {
         this.realm = Realm.open({
             path: './DataRealm/default.realm',
             schema: [Order, OrderDrink, OrderService, Account, Restaurant, VoiceDevice, Menu, MenuDrinks, MenuDrinksVar, MenuDefaultParent],
-            schemaVersion: 7,
+            schemaVersion: 8,
             migration: (oldRealm, newRealm) => {
                 if (oldRealm.schemaVersion === undefined || oldRealm.schemaVersion === 1) {
                     console.log('##############################################################');
@@ -112,6 +112,17 @@ class ParentRealmController {
                         }
                         newOrder[0].drinks = newDrinks;
                         newOrder[0].services = [];
+                    }
+                }
+                if (oldRealm.schemaVersion === 7) {
+                    console.log('##############################################################');
+                    console.log('REALM Migration to Version 8');
+                    console.log('##############################################################');
+                    let oldOrderItems = oldRealm.objects('Order');
+
+                    for (let i = 0; i < oldOrderItems.length; i++) {
+                        let newDrink = newRealm.objects('Order').filtered('id = $0', oldOrderItems.id);
+                        newDrink.tableNb = '';
                     }
                 }
             }

@@ -10,6 +10,7 @@ const OrderSchema = {
         voiceDeviceId: 'string',
         restaurantId: 'string',
         status: {type: 'int', default: 0},
+        tableNb: 'string',
         deleted: 'date?'
     }
 };
